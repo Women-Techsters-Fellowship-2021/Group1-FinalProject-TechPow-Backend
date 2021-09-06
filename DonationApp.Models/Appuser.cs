@@ -1,0 +1,31 @@
+﻿using DonationApp.Models.Enums;
+using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DonationApp.Models
+{
+   public class Appuser : IdentityUser
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+         public string Address { get; set; }
+        public string Country { get; set; }
+        public string State { get; set; }
+        public Roles Roles { get; set; }
+
+        //Navigation Properties
+
+        //public Donee DoneeUser { get; set; }
+        //public NGO NGOUser { get; set; }
+
+
+
+
+    }
+}
