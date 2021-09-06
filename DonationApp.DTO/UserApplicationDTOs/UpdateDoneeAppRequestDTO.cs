@@ -5,16 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DonationApp.DTO.AppuserDTOs
+namespace DonationApp.DTO.UserApplicationDTOs
 {
-    public class UpdateDoneeRequestDTO
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
+    public class UpdateDoneeAppRequestDTO
+    {       
         public string PhoneNumber { get; set; }
         public CareerStatus CareerStatus { get; set; }
         public MaritalStatus MaritalStatus { get; set; }
         public string ShortBio { get; set; }
+        public TechStack TechStack { get; set; }
     }
+    
 }

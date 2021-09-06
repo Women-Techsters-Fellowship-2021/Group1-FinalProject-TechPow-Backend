@@ -9,6 +9,6 @@ namespace DonationApp.BuisnessLogic.Interfaces
 {
    public interface ITokenGenerator
     {
-        Task<string> GenerateToken(Appuser appuser);
+        Task<string> GenerateToken(AppUser appuser);
     }
 }

@@ -40,9 +40,8 @@ namespace DonationAppWEBAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddScoped<IRegAuthentication, RegAuthentication>();
-            services.AddScoped<ILoginAuthentication, LoginAuthentication>();
-            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IAuthentication, Authentication>();
+           services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IItemServices, ItemServices>();
             services.AddScoped<IDonationServices, DonationServices>();
             services.AddScoped<IAppuserDatastore, AppuserDatastore>();
@@ -56,7 +55,7 @@ namespace DonationAppWEBAPI
                 // options.UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]);
 
             });
-            services.AddIdentity<Appuser, IdentityRole>().AddEntityFrameworkStores<DonationAppDBContext>().AddDefaultTokenProviders();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<DonationAppDBContext>().AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -130,7 +129,7 @@ namespace DonationAppWEBAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager, UserManager<Appuser> userManager, DonationAppDBContext donationAppDBContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, DonationAppDBContext donationAppDBContext)
         {
             if (env.IsDevelopment())
             {

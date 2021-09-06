@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DonationApp.DTO.AppuserDTOs
+namespace DonationApp.DTO.UserApplicationDTOs
 {
-   public class NGORegResponseDTO
+   public class NGOInfoResponseDTO
     {
         public string Id { get; set; }
         public string NGOName { get; set; }
         public string WebsiteLink { get; set; }
         public string Email { get; set; }
          public string Password { get; set; }
-         public Roles Roles { get; set; }
+         public TypeofUser Roles { get; set; }
     }
 }

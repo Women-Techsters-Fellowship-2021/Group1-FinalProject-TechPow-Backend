@@ -4,48 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DonationApp.DTO.AppuserDTOs;
+using DonationApp.DTO.UserApplicationDTOs;
 
 namespace DonationApp.Models.Mappings
 {
    public class DoneeMappings
     {
-        public static DoneeRegResponseDTO GetDoneeRegResponseDTO(Appuser donee)
+        public static DoneeAppResponseDTO GetDoneeRegResponseDTO(Donee donee)
         {
-            return new DoneeRegResponseDTO
+            return new DoneeAppResponseDTO
             {
-                Id = donee.Id,
-                FirstName = donee.FirstName,
-                UserName = donee.UserName,
-                LastName = donee.LastName,
-                Email = donee.Email,
-                PhoneNumber = donee.PhoneNumber
+                
                
             };
         }
 
-        public static DoneeResponseDTO GetDoneeResponseDTO(Appuser donee)
+        public static DoneeResponseDTO GetDoneeResponseDTO(Donee donee)
         {
             return new DoneeResponseDTO
             {
-                Id = donee.Id,
-                FirstName = donee.FirstName,
-                UserName = donee.UserName,
-                LastName = donee.LastName,
-                Email = donee.Email,
-                PhoneNumber = donee.PhoneNumber
+                
             };
         }
 
-        public static Appuser GetRegDonee(DoneeRegRequestDTO doneeRegRequestDTO)
+        public static Donee GetRegDonee(DoneeAppRequestDTO doneeAppRequestDTO)
         {
-            return new Appuser
+            return new Donee
             {
-                FirstName = doneeRegRequestDTO.FirstName,
-                LastName = doneeRegRequestDTO.LastName,
-                Email = doneeRegRequestDTO.Email,
-                PhoneNumber = doneeRegRequestDTO.PhoneNumber,
-                UserName = string.IsNullOrWhiteSpace(doneeRegRequestDTO.UserName) ? doneeRegRequestDTO.Email : doneeRegRequestDTO.UserName,
-                Roles = Enums.Roles.Donee
+                
+                
             };
         }
     }

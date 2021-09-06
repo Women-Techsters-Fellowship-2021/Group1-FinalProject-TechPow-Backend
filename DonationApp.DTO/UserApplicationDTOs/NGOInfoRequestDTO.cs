@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DonationApp.DTO.AppuserDTOs
+namespace DonationApp.DTO.UserApplicationDTOs
 {
-   public class NGORegRequestDTO
+   public class NGOInfoRequestDTO
     {
          public string NGOName { get; set; }
          public string Email { get; set; }

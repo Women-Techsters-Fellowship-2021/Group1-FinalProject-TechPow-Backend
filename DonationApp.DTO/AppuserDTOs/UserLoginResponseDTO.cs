@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DonationApp.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace DonationApp.DTO.AppuserDTOs
     {
         public string Id { get; set; }
         public string Email { get; set; }
+        public TypeofUser typeofUser { get; set; }
         public string Token { get; set; }
     }
 }

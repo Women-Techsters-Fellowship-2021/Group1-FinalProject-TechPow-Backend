@@ -1,4 +1,5 @@
 ﻿using DonationApp.DTO.AppuserDTOs;
+using DonationApp.DTO.UserApplicationDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,35 +10,36 @@ namespace DonationApp.Models.Mappings
 {
     public class NGOMappings
     {
-        public static NGORegResponseDTO GetNGORegResponseDTO(NGO ngo)
+        public static NGOInfoResponseDTO GetNGOInfoResponseDTO(NGO ngo)
         {
-            return new NGORegResponseDTO
+            return new NGOInfoResponseDTO
             {
                 Id = ngo.Id,
                 Email = ngo.users.Email,
                 NGOName = ngo.NGOName,
                 WebsiteLink = ngo.WebsiteLink
               
-
             };
         }
 
-        public static NGOResponseDTO GetNGOResponseDTO(Appuser ngo)
+        public static NGOResponseDTO GetNGOResponseDTO(NGO ngo)
         {
             return new NGOResponseDTO
             {
                 Id = ngo.Id,
-                Email = ngo.Email,
+                Email = ngo.users.Email,
+                WebsiteLink = ngo.WebsiteLink
                
             };
         }
 
-        public static NGO GetRegNGO(NGORegRequestDTO ngoRegRequestDTO)
+        public static NGO GetRegNGO(NGOInfoRequestDTO ngoInfoRequestDTO)
         {
             return new NGO
             {
-               NGOName = ngoRegRequestDTO.NGOName,
-               WebsiteLink = ngoRegRequestDTO.WebsiteLink,
+                
+               NGOName = ngoInfoRequestDTO.NGOName,
+               WebsiteLink = ngoInfoRequestDTO.WebsiteLink,
                
                
                

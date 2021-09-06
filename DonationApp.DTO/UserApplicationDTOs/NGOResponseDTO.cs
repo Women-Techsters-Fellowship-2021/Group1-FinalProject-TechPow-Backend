@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DonationApp.DTO.AppuserDTOs
+namespace DonationApp.DTO.UserApplicationDTOs
 {
     public class NGOResponseDTO
     {
@@ -13,6 +13,6 @@ namespace DonationApp.DTO.AppuserDTOs
         public string NGOName { get; set; }
         public string WebsiteLink { get; set; }
         public string Email { get; set; }
-        public string Token { get; set; }
+       
     }
 }

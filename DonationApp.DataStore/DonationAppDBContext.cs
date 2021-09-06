@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DonationApp.DataStore
 {
-   public class DonationAppDBContext : IdentityDbContext<Appuser> 
+   public class DonationAppDBContext : IdentityDbContext<AppUser> 
     {
         public DonationAppDBContext(DbContextOptions<DonationAppDBContext> options) : base(options)
         {
@@ -19,5 +19,6 @@ namespace DonationApp.DataStore
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Donee> Donees { get; set; }
         public DbSet<NGO> NGOs { get; set; }
+        public DbSet<Donor> Donors { get; set; }
     }
 }

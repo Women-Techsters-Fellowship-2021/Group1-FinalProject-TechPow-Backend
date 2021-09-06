@@ -16,14 +16,14 @@ namespace DonationApp.BuisnessLogic.Implementations
     public class TokenGenerator : ITokenGenerator
     {
         private readonly IConfiguration _configuration;
-        private readonly UserManager<Appuser> _userManager;
-        public TokenGenerator(IConfiguration configuration, UserManager<Appuser> userManager)
+        private readonly UserManager<AppUser> _userManager;
+        public TokenGenerator(IConfiguration configuration, UserManager<AppUser> userManager)
         {
             _configuration = configuration;
             _userManager = userManager;
         }
 
-        public async Task<string> GenerateToken(Appuser appuser)
+        public async Task<string> GenerateToken(AppUser appuser)
         {
             var authClaims = new List<Claim>
             {

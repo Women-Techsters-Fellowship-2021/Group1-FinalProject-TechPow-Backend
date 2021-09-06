@@ -5,23 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DonationApp.Models
+namespace DonationApp.DTO.UserApplicationDTOs
 {
-   public class Donee
+   public class DoneeAppRequestDTO
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+
         public DateTime DOB { get; set; }
         public string ItemNeeded { get; set; }
-        public string ItemID { get; set; }
         public Gender Gender { get; set; }
         public CareerStatus CareerStatus { get; set; }
         public MaritalStatus MaritalStatus { get; set; }
         public string ShortBio { get; set; }
         public string ImageLink { get; set; }
+        public string PhoneNumber { get; set; }
+        public TechStack TechStack { get; set; }
 
-        //Navigational Properties
 
-        public AppUser users { get; set;}
-     
+
     }
 }

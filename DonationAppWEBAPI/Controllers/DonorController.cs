@@ -9,7 +9,7 @@ namespace DonationAppWEBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppuserController : ControllerBase
+    public class DonorController : ControllerBase
     {
     }
 }

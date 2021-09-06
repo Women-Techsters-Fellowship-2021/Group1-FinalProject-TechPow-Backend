@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DonationApp.Models
 {
-   public class Appuser : IdentityUser
+   public class AppUser : IdentityUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -17,12 +17,7 @@ namespace DonationApp.Models
          public string Address { get; set; }
         public string Country { get; set; }
         public string State { get; set; }
-        public Roles Roles { get; set; }
-
-        //Navigation Properties
-
-        //public Donee DoneeUser { get; set; }
-        //public NGO NGOUser { get; set; }
+        public TypeofUser TypeofUser { get; set; }
 
 
 

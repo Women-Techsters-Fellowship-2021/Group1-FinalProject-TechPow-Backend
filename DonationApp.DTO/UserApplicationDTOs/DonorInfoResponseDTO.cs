@@ -4,14 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DonationApp.Models.Enums
+namespace DonationApp.DTO.UserApplicationDTOs
 {
-    public enum Roles
+   public class DonorInfoResponseDTO
     {
-        Admin = 1,
-        Donor,
-        Donee,
-        NGO
-
     }
+
 }

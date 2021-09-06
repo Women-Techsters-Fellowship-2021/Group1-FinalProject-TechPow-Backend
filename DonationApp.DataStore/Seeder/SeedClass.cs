@@ -10,7 +10,7 @@ namespace DonationApp.DataStore.Seeder
 {
     public class SeedClass
     {
-        public async static Task Seed(RoleManager<IdentityRole> roleManager, UserManager<Appuser> userManager, DonationAppDBContext donationAppDBContext)
+        public async static Task Seed(RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager, DonationAppDBContext donationAppDBContext)
         {
             await donationAppDBContext.Database.EnsureCreatedAsync();
 
