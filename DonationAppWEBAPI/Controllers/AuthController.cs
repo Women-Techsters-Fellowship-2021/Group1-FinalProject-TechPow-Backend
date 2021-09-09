@@ -48,9 +48,9 @@ namespace DonationAppWEBAPI.Controllers
             {
                 return Ok(await _authentication.UserLoginAsync(userLoginRequestDTO));
             }
-            catch (AccessViolationException)
+            catch (AccessViolationException ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
 
             catch (Exception)

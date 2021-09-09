@@ -10,8 +10,8 @@ namespace DonationApp.DTO.AppuserDTOs
     public class UserLoginResponseDTO
     {
         public string Id { get; set; }
-        public string Email { get; set; }
-        public TypeofUser typeofUser { get; set; }
+          public string Email { get; set; }
+        public string TypeofUser { get; set; }
         public string Token { get; set; }
     }
 }

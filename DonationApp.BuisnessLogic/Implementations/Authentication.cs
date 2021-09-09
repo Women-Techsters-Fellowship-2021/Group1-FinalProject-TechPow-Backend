@@ -26,25 +26,26 @@ namespace DonationApp.BuisnessLogic.Implementations
 
         public async Task<UserRegResponseDTO> UserRegistrationAsync(UserRegRequestDTO userRegRequestDTO)
         {
-            
-           var user = AppuserMapping.GetRegUser(userRegRequestDTO);
-            IdentityResult result = await _userManager.CreateAsync(user, userRegRequestDTO.Password);
-              var assignRole = await _userManager.AddToRoleAsync(user, userRegRequestDTO.TypeofUser);
 
-             if (result.Succeeded && assignRole.Succeeded)
-            {
-                return AppuserMapping.GetUserRegResponseDTO(user);
-            }
-            string errors = string.Empty;
-            foreach (var error in result.Errors)
-            {
-                errors += error.Description + Environment.NewLine;
-            }
-            throw new MissingMemberException(errors);
+            
+                var user = AppuserMapping.GetRegUser(userRegRequestDTO);
+                IdentityResult result = await _userManager.CreateAsync(user, userRegRequestDTO.Password);
+                var assignRole = await _userManager.AddToRoleAsync(user, userRegRequestDTO.TypeofUser);
+
+                if (result.Succeeded && assignRole.Succeeded)
+                {
+                    return AppuserMapping.GetUserRegResponseDTO(user);
+                }
+                string errors = string.Empty;
+                foreach (var error in result.Errors)
+                {
+                    errors += error.Description + Environment.NewLine;
+                }
+                throw new MissingMemberException(errors);
+                        
         }
 
-   
-        public async Task<UserResponseDTO> UserLoginAsync(UserLoginRequestDTO userLoginRequestDTO)
+           public async Task<UserResponseDTO> UserLoginAsync(UserLoginRequestDTO userLoginRequestDTO)
         {
             AppUser user = await _userManager.FindByEmailAsync(userLoginRequestDTO.Email);
 
@@ -53,6 +54,8 @@ namespace DonationApp.BuisnessLogic.Implementations
                 if (await _userManager.CheckPasswordAsync(user, userLoginRequestDTO.Password))
                 {
                     var response = AppuserMapping.GetUserResponseDTO(user);
+                    IList<string> roles = await _userManager.GetRolesAsync(user);
+                    response.TypeofUser = roles.FirstOrDefault();
                     response.Token = await _tokenGenerator.GenerateToken(user);
 
                     return response;

@@ -16,6 +16,6 @@ namespace DonationApp.DTO.AppuserDTOs
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Token { get; set; }
-        public TypeofUser TypeofUser { get; set; }
+        public string TypeofUser { get; set; }
     }
 }
