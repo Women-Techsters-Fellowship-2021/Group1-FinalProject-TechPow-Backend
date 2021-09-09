@@ -29,6 +29,7 @@ namespace DonationAppWEBAPI
 {
     public class Startup
     {
+        readonly string AllowedOrigins = "_AllowedOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -100,7 +101,7 @@ namespace DonationAppWEBAPI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "StoreManagementWEBAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DonationAppWEBAPI", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",
@@ -126,6 +127,18 @@ namespace DonationAppWEBAPI
                     }
                 });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: AllowedOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:3001")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                                                  
+                                  });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -146,14 +159,17 @@ namespace DonationAppWEBAPI
 
             app.UseRouting();
 
+            app.UseCors(AllowedOrigins);
+
             app.UseAuthentication();
 
-            app.UseAuthorization();
+             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

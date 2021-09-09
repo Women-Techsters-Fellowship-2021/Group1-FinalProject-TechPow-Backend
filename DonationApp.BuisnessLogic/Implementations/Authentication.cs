@@ -26,12 +26,12 @@ namespace DonationApp.BuisnessLogic.Implementations
 
         public async Task<UserRegResponseDTO> UserRegistrationAsync(UserRegRequestDTO userRegRequestDTO)
         {
-            var user = AppuserMapping.GetRegUser(userRegRequestDTO);
+            
+           var user = AppuserMapping.GetRegUser(userRegRequestDTO);
             IdentityResult result = await _userManager.CreateAsync(user, userRegRequestDTO.Password);
-            var assignRole = await _userManager.AddToRoleAsync(user, userRegRequestDTO.typeofUser.ToString());
+              var assignRole = await _userManager.AddToRoleAsync(user, userRegRequestDTO.TypeofUser);
 
-
-            if (result.Succeeded && assignRole.Succeeded)
+             if (result.Succeeded && assignRole.Succeeded)
             {
                 return AppuserMapping.GetUserRegResponseDTO(user);
             }
@@ -40,7 +40,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             {
                 errors += error.Description + Environment.NewLine;
             }
-            throw new MissingFieldException(errors);
+            throw new MissingMemberException(errors);
         }
 
    

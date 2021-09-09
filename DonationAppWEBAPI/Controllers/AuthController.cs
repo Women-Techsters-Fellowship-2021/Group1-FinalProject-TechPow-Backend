@@ -29,13 +29,16 @@ namespace DonationAppWEBAPI.Controllers
 
                 return Created("", result);
             }
-            catch (MissingFieldException ex)
+            catch (MissingMemberException ex)
             {
                 return BadRequest(ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+
+
+
             }
         }
         [HttpPost("Login")]

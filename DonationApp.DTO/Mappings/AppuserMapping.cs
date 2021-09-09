@@ -19,6 +19,7 @@ namespace DonationApp.DTO.Mappings
                 UserName = user.UserName,
                 LastName = user.LastName,
                 Email = user.Email,
+                
 
             };
         }
@@ -32,7 +33,7 @@ namespace DonationApp.DTO.Mappings
                 UserName = user.UserName,
                 LastName = user.LastName,
                 Email = user.Email,
-                TypeofUser = user.TypeofUser
+                
             };
         }
 
@@ -44,7 +45,8 @@ namespace DonationApp.DTO.Mappings
                 LastName = userRegRequestDTO.LastName,
                 Email = userRegRequestDTO.Email,
                 UserName = string.IsNullOrWhiteSpace(userRegRequestDTO.UserName) ? userRegRequestDTO.Email : userRegRequestDTO.UserName,
-                TypeofUser = userRegRequestDTO.typeofUser
+               
+               
             };
         }
     }

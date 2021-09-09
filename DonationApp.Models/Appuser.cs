@@ -17,7 +17,8 @@ namespace DonationApp.Models
          public string Address { get; set; }
         public string Country { get; set; }
         public string State { get; set; }
-        public TypeofUser TypeofUser { get; set; }
+
+        
 
 
 
