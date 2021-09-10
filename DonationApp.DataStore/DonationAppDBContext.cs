@@ -20,5 +20,5 @@ namespace DonationApp.DataStore
         public DbSet<Donee> Donees { get; set; }
         public DbSet<NGO> NGOs { get; set; }
         public DbSet<Donor> Donors { get; set; }
-    }
+           }
 }

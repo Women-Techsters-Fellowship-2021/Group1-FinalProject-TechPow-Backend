@@ -26,18 +26,18 @@ namespace DonationAppWEBAPI.Controllers
             try
             {
                 var result = await _authentication.UserRegistrationAsync(userRegRequestDTO);
+                if(result.Success)
+                {
+                    return Created("", result);
+                }
 
-                return Created("", result);
+                return BadRequest(result);
+                               
             }
-            catch (MissingMemberException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+           
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
-
-
 
             }
         }
@@ -46,12 +46,15 @@ namespace DonationAppWEBAPI.Controllers
         {
             try
             {
-                return Ok(await _authentication.UserLoginAsync(userLoginRequestDTO));
+                var result = await _authentication.UserLoginAsync(userLoginRequestDTO);
+               
+                if(result.Success)
+                {
+                    return Ok(result);
+                }
+                return BadRequest(result);
             }
-            catch (AccessViolationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+           
 
             catch (Exception)
             {

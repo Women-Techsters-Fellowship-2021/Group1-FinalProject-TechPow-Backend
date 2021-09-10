@@ -1,4 +1,5 @@
 ﻿using DonationApp.DTO.AppuserDTOs;
+using DonationApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace DonationApp.BuisnessLogic.Interfaces
 {
     public interface IAuthentication
     {
-        Task<UserRegResponseDTO>UserRegistrationAsync(UserRegRequestDTO donorRegRequestDTO);
-        Task<UserResponseDTO> UserLoginAsync(UserLoginRequestDTO userLoginRequestDTO);
+        Task<ServiceResponse<UserRegResponseDTO>> UserRegistrationAsync(UserRegRequestDTO donorRegRequestDTO);
+        Task<ServiceResponse<UserResponseDTO>> UserLoginAsync(UserLoginRequestDTO userLoginRequestDTO);
     }
 }

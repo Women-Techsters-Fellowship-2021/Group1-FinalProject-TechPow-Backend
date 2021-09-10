@@ -24,48 +24,65 @@ namespace DonationApp.BuisnessLogic.Implementations
             _tokenGenerator = tokenGenerator;
         }
 
-        public async Task<UserRegResponseDTO> UserRegistrationAsync(UserRegRequestDTO userRegRequestDTO)
+        public async Task<ServiceResponse<UserRegResponseDTO>> UserRegistrationAsync(UserRegRequestDTO userRegRequestDTO)
         {
+            ServiceResponse<UserRegResponseDTO> serviceResponse = new ServiceResponse<UserRegResponseDTO>();
 
-            
-                var user = AppuserMapping.GetRegUser(userRegRequestDTO);
-                IdentityResult result = await _userManager.CreateAsync(user, userRegRequestDTO.Password);
-                var assignRole = await _userManager.AddToRoleAsync(user, userRegRequestDTO.TypeofUser);
+            var user = AppuserMapping.GetRegUser(userRegRequestDTO);
+            IdentityResult result = await _userManager.CreateAsync(user, userRegRequestDTO.Password);
 
-                if (result.Succeeded && assignRole.Succeeded)
-                {
-                    return AppuserMapping.GetUserRegResponseDTO(user);
-                }
-                string errors = string.Empty;
-                foreach (var error in result.Errors)
-                {
-                    errors += error.Description + Environment.NewLine;
-                }
-                throw new MissingMemberException(errors);
-                        
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, userRegRequestDTO.TypeofUser);
+                serviceResponse.Data = AppuserMapping.GetUserRegResponseDTO(user);
+                serviceResponse.Message = "User Registered Successfully..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+
+           
+            foreach (var error in result.Errors)
+            {
+                serviceResponse.Errors.Add(error.Description);
+            }
+            serviceResponse.Message = "User Registration failed";
+            serviceResponse.Success = false;
+            return serviceResponse;
+
+
         }
 
-           public async Task<UserResponseDTO> UserLoginAsync(UserLoginRequestDTO userLoginRequestDTO)
+        public async Task<ServiceResponse<UserResponseDTO>> UserLoginAsync(UserLoginRequestDTO userLoginRequestDTO)
+
         {
+            ServiceResponse<UserResponseDTO> serviceResponse = new ServiceResponse<UserResponseDTO>();
+
             AppUser user = await _userManager.FindByEmailAsync(userLoginRequestDTO.Email);
 
             if (user != null)
             {
                 if (await _userManager.CheckPasswordAsync(user, userLoginRequestDTO.Password))
                 {
-                    var response = AppuserMapping.GetUserResponseDTO(user);
+                                       
                     IList<string> roles = await _userManager.GetRolesAsync(user);
-                    response.TypeofUser = roles.FirstOrDefault();
-                    response.Token = await _tokenGenerator.GenerateToken(user);
+                    serviceResponse.Data = AppuserMapping.GetUserResponseDTO(user);
+                     serviceResponse.Data.Token = await _tokenGenerator.GenerateToken(user);
+                      serviceResponse.Data.TypeofUser = roles.FirstOrDefault();
+                    serviceResponse.Message = "User login Successfully..";
+                    serviceResponse.Success = true;
 
-                    return response;
+                    return serviceResponse;
                 }
-
-                throw new AccessViolationException("Invalid Login Credentials");
+               
+                serviceResponse.Message = "Invalid login credientials...";
+                serviceResponse.Success = false;
+                return serviceResponse;
             }
-            throw new AccessViolationException("Invalid Login Credentials");
+            serviceResponse.Message = "Account for this user not found..";
+            serviceResponse.Success = false;
+            return serviceResponse;
         }
 
-                
+
     }
 }
