@@ -35,7 +35,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             {
                 await _userManager.AddToRoleAsync(user, userRegRequestDTO.TypeofUser);
                 serviceResponse.Data = AppuserMapping.GetUserRegResponseDTO(user);
-                serviceResponse.Message = "User Registered Successfully..";
+                serviceResponse.Message = "User Registered Successfully. Please Login to continue..";
                 serviceResponse.Success = true;
                 return serviceResponse;
             }
@@ -70,11 +70,9 @@ namespace DonationApp.BuisnessLogic.Implementations
                       serviceResponse.Data.TypeofUser = roles.FirstOrDefault();
                     serviceResponse.Message = "User login Successfully..";
                     serviceResponse.Success = true;
-
-                    return serviceResponse;
+                     return serviceResponse;
                 }
-               
-                serviceResponse.Message = "Invalid login credientials...";
+                 serviceResponse.Message = "Invalid login credientials...";
                 serviceResponse.Success = false;
                 return serviceResponse;
             }

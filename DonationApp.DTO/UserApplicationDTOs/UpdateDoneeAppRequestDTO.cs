@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace DonationApp.DTO.UserApplicationDTOs
 {
     public class UpdateDoneeAppRequestDTO
-    {       
-        public string PhoneNumber { get; set; }
-        public CareerStatus CareerStatus { get; set; }
-        public MaritalStatus MaritalStatus { get; set; }
-        public string ShortBio { get; set; }
-        public TechStack TechStack { get; set; }
+    {
+        public string HomeAddress { get; set; }
+        public string Country { get; set; }
+        public string EduLevel { get; set; }
+        public string ImageLink { get; set; }
+       
     }
     
 }

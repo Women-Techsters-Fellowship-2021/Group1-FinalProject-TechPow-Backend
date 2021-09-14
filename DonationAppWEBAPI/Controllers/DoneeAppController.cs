@@ -1,0 +1,127 @@
+﻿using DonationApp.BuisnessLogic.Interfaces;
+using DonationApp.DTO.UserApplicationDTOs;
+using DonationApp.Models.Mappings;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+namespace DonationAppWEBAPI.Controllers
+{
+    [Route("api/v1/[controller]")]
+    [ApiController]
+    public class DoneeAppController : ControllerBase
+    {
+        private readonly IDoneeServices _doneeServices;
+        public DoneeAppController(IDoneeServices doneeServices)
+        {
+            _doneeServices = doneeServices;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDoneeApp([FromQuery] string doneeID)
+        {
+            try
+            {
+                var donee = await _doneeServices.GetDoneeApp(doneeID);
+                var result = DoneeMappings.GetDoneeResponseDTO(donee.Data);
+                if (!(result == null))
+                {
+                    return Ok(result);
+                }
+                return NotFound(result);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddApplication(DoneeAppRequestDTO doneeAppRequestDTO)
+        {
+            try
+            {
+                var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
+                var newDonee = await _doneeServices.DoneeApplicationAsync(doneeAppRequestDTO);
+                if (newDonee.Success)
+                {
+                    return CreatedAtAction(nameof(GetDoneeApp), new { doneeId = newDonee.Data.Id }, newDonee);
+                }
+                return BadRequest(newDonee);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> UpdateDoneeApp_Put(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, [FromQuery] string doneeID)
+        {
+
+            try
+            {
+                var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
+                var result = await _doneeServices.UpdateDoneeAppByPut(updateDoneeAppRequestDTO, doneeID, loggedInUser);
+                if (result.Success)
+                {
+                    return Ok(result.Message);
+                }
+                return BadRequest(result.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPatch]
+        [Authorize]
+        public async Task<IActionResult> UpdateDoneeApp_Patch(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, [FromQuery] string doneeID)
+        {
+            try
+            {
+                var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
+                var result = await _doneeServices.UpdateDoneeAppByPatch(updateDoneeAppRequestDTO, doneeID, loggedInUser);
+                if (result.Success)
+                {
+                    return Ok(result.Message);
+                }
+                return BadRequest(result.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpDelete]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> DeleteDoneeApp([FromQuery] string doneeID)
+        {
+            try
+            {
+                var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
+                var result = await _doneeServices.DeleteDoneeApp( doneeID, loggedInUser);
+                if (result.Success)
+                {
+                    return Ok(result.Message);
+                }
+                return BadRequest(result.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+    }
+}

@@ -42,7 +42,8 @@ namespace DonationAppWEBAPI
         {
 
             services.AddScoped<IAuthentication, Authentication>();
-           services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IDoneeServices, DoneeServices>();
+            services.AddScoped<IDoneeAppDatastore, DoneeAppDatastore>();
             services.AddScoped<IItemServices, ItemServices>();
             services.AddScoped<IDonationServices, DonationServices>();
             services.AddScoped<IAppuserDatastore, AppuserDatastore>();
@@ -133,7 +134,7 @@ namespace DonationAppWEBAPI
                 options.AddPolicy(name: AllowedOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:3001")
+                                      builder.WithOrigins("http://localhost:3000")
                                       .AllowAnyHeader()
                                       .AllowAnyMethod();
                                                   

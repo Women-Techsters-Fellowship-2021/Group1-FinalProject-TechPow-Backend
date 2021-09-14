@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace DonationApp.Models.Enums
 {
-    public enum CareerStatus
+    public enum ItemNeeded
     {
-        Student = 1,
-        Employed,
-        Unemployed,
-
+        Laptop = 1,
+        Phone,
+        InternetData
     }
 }

@@ -4,14 +4,16 @@ using DonationApp.DataStore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DonationApp.DataStore.Migrations
 {
     [DbContext(typeof(DonationAppDBContext))]
-    partial class DonationAppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210912063103_DoneeApplicationModel")]
+    partial class DoneeApplicationModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,17 +136,17 @@ namespace DonationApp.DataStore.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Country")
+                        .HasColumnType("int");
 
                     b.Property<string>("DOB")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EduLevel")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EduLevel")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<string>("HomeAddress")
                         .HasColumnType("nvarchar(max)");
@@ -152,8 +154,8 @@ namespace DonationApp.DataStore.Migrations
                     b.Property<string>("ImageLink")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ItemNeeded")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ItemNeeded")
+                        .HasColumnType("int");
 
                     b.Property<string>("LetterOfRecLink")
                         .HasColumnType("nvarchar(max)");
