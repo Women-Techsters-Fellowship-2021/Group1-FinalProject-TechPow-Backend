@@ -40,7 +40,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             var response = await _doneeAppDatastore.DeleteDoneeAppAsync(doneeID, userId);
             if (response)
             {
-                serviceResponse.Message = "Donee application deleted successful..";
+                serviceResponse.Message = "Donee application deleted successfully..";
                 serviceResponse.Success = true;
                 return serviceResponse;
             }
@@ -72,7 +72,6 @@ namespace DonationApp.BuisnessLogic.Implementations
                 OrgWebsite = doneeAppRequestDTO.OrgWebsite,
                 Signature = doneeAppRequestDTO.Signature,
                 PhoneNumber = doneeAppRequestDTO.PhoneNumber
-
             };
 
             var newdonee = await _doneeAppDatastore.AddDoneeAppAsync(newDonee);
@@ -179,7 +178,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             }
             if (donee.Data.UserId != userId)
             {
-                serviceResponse.Message = "Not Authorrized!";
+                serviceResponse.Message = "Not Authorized!";
                 serviceResponse.Success = false;
                 return serviceResponse;
             }

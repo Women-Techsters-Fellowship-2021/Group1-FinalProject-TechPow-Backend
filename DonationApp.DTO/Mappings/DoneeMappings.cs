@@ -23,7 +23,6 @@ namespace DonationApp.Models.Mappings
                 EduLevel = donee.EduLevel.ToString(),
                 OrgName = donee.OrgName,
                 ApplicationStatus = donee.ApplicationStatus
-
             };
         }
 
@@ -45,8 +44,6 @@ namespace DonationApp.Models.Mappings
                 OrgName = donee.OrgName,
                 ApplicationStatus = donee.ApplicationStatus,
                 PhoneNumber = donee.PhoneNumber
-                
-
             };
         }
 
@@ -72,12 +69,6 @@ namespace DonationApp.Models.Mappings
                 Signature = doneeAppRequestDTO.Signature,
                 ApplicationStatus = doneeAppRequestDTO.ApplicationStatus,
                 PhoneNumber = doneeAppRequestDTO.PhoneNumber
-
-
-
-
-
-
             };
         }
     }

@@ -8,6 +8,8 @@ namespace DonationApp.DTO.UserApplicationDTOs
 {
     public class DonorResponseDTO
     {
+        public string Id { get; set; }
+        public string UserId { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
         public string HomeAddress { get; set; }

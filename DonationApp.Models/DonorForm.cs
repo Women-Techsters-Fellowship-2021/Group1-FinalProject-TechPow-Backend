@@ -10,6 +10,7 @@ namespace DonationApp.Models
     public class DonorForm
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
+        public string UserId { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
         public string HomeAddress { get; set; }

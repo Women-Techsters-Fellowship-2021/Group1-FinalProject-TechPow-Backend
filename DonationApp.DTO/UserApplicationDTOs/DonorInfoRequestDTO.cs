@@ -10,6 +10,8 @@ namespace DonationApp.DTO.UserApplicationDTOs
     public class DonorInfoRequestDTO
     {
         [Required]
+        public string UserId { get; set; }
+        [Required]
         public string FullName { get; set; }
         [Required]
         public string PhoneNumber { get; set; }

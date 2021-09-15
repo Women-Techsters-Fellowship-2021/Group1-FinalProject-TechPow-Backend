@@ -136,7 +136,7 @@ namespace DonationAppWEBAPI
                 options.AddPolicy(name: AllowedOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:3001")
+                                      builder.WithOrigins("http://localhost:3000")
                                       .AllowAnyHeader()
                                       .AllowAnyMethod();
                                                   

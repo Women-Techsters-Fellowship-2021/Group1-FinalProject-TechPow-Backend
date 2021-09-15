@@ -1,39 +1,170 @@
-﻿using DonationApp.BuisnessLogic.Interfaces;
-using DonationApp.DTO.UserApplicationDTOs;
-using DonationApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DonationApp.BuisnessLogic.Interfaces;
+using DonationApp.DataStore.Interfaces;
+using DonationApp.DTO.AppuserDTOs;
+using DonationApp.DTO.UserApplicationDTOs;
+using DonationApp.Models;
+using DonationApp.Models.Mappings;
 
 namespace DonationApp.BuisnessLogic.Implementations
 {
     public class DonorServices : IDonorServices
     {
-        public Task<ServiceResponse<bool>> DeleteDonorForm(string donorFormID, string userId)
+        private readonly IDonorFormDatastore _donorFormDatastore;
+        public DonorServices(IDonorFormDatastore donorFormDatastore )
         {
-            throw new NotImplementedException();
+            _donorFormDatastore = donorFormDatastore ?? throw new ArgumentNullException(nameof(donorFormDatastore));
+        }
+        
+        public async Task<ServiceResponse<bool>> DeleteDonorForm(string donorFormID, string userId)
+        {
+            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
+
+            var donor = await GetDonorForm(donorFormID);
+            if (donor.Data==null)
+            {
+                serviceResponse.Message = "Donor application not found";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            if (donor.Data.UserId == userId)
+            {
+                serviceResponse.Message = "Not Authorrized!";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            var response = await _donorFormDatastore.DeleteDonorFormAsync(donorFormID, userId);
+            if (response)
+            {
+                serviceResponse.Message = "Donor application deleted successfully..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "Donor application not found";
+            serviceResponse.Success = false;
+            return serviceResponse;
         }
 
-        public Task<ServiceResponse<DonorResponseDTO>> DonorFormAsync(DonorInfoRequestDTO donorInfoRequestDTO)
+        public async Task<ServiceResponse<DonorResponseDTO>> DonorFormAsync(DonorInfoRequestDTO donorInfoRequestDTO)
         {
-            throw new NotImplementedException();
+            ServiceResponse<DonorResponseDTO> serviceResponse = new ServiceResponse<DonorResponseDTO>();
+
+            DonorForm newDonor = new DonorForm
+            {
+                FullName = donorInfoRequestDTO.FullName,
+                PhoneNumber = donorInfoRequestDTO.PhoneNumber,
+                HomeAddress = donorInfoRequestDTO.HomeAddress,
+                Country = donorInfoRequestDTO.Country,
+                ReasonForDonation = donorInfoRequestDTO.ReasonForDonation,
+                DeviceSpecification = donorInfoRequestDTO.DeviceSpecification,
+                ItemOwnership = donorInfoRequestDTO.ItemOwnership,
+                DeviceCondition = donorInfoRequestDTO.DeviceCondition,
+                UpdateRequest = donorInfoRequestDTO.UpdateRequest,
+                Signature = donorInfoRequestDTO.Signature
+            };
+
+            var newdonor = await _donorFormDatastore.AddDonorFormAsync(newDonor);
+
+            if (newdonor != null)
+            {
+                serviceResponse.Data = DonorMappings.GetDonorResponseDTO(newdonor);
+                serviceResponse.Message = "Application Submitted Successfully...";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "Cannot submit application at this time...";
+            serviceResponse.Success = false;
+            return serviceResponse;
         }
 
-        public Task<ServiceResponse<DoneeApplication>> GetDonorForm(string donorFormID)
+        public async Task<ServiceResponse<DonorForm>> GetDonorForm(string donorFormID)
         {
-            throw new NotImplementedException();
+            ServiceResponse<DonorForm> serviceResponse = new ServiceResponse<DonorForm>();
+
+            var donor = await _donorFormDatastore.GetDonorFormAsync(donorFormID);
+            if(donor !=null)
+            {
+                serviceResponse.Data = donor;
+                serviceResponse.Message = "Donor Application found..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "Donor Application not found..";
+            serviceResponse.Success = false;
+            return serviceResponse;
         }
 
-        public Task<ServiceResponse<bool>> UpdateDonorFormByPatch(UpdateDonorInfoRequest updateDonorInfoRequest, string donorInfoID, string userId)
+        public async Task<ServiceResponse<bool>> UpdateDonorFormByPatch(UpdateDonorInfoRequest updateDonorInfoRequest, string donorFormID, string userId)
         {
-            throw new NotImplementedException();
+            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
+
+            var donor = await GetDonorForm(donorFormID);
+            if (donor.Data == null)
+            {
+                serviceResponse.Message = "Donor application not found";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            if (donor.Data.UserId != userId)
+            {
+                serviceResponse.Message = "Not Authorized!";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            donor.Data.ReasonForDonation = updateDonorInfoRequest.ReasonForDonation ?? donor.Data.ReasonForDonation;
+            donor.Data.DeviceSpecification = updateDonorInfoRequest.DeviceSpecification ?? donor.Data.DeviceSpecification;
+            donor.Data.ItemOwnership = updateDonorInfoRequest.ItemOwnership ?? donor.Data.ItemOwnership;
+            donor.Data.DeviceCondition = updateDonorInfoRequest.DeviceCondition ?? donor.Data.DeviceCondition;
+            donor.Data.Signature = updateDonorInfoRequest.Signature ?? donor.Data.Signature;
+           
+            var result = await _donorFormDatastore.UpdateDonorFormAsync(donor.Data);
+            if(result)
+            {
+                serviceResponse.Message = "Application updated sucessfully..";
+                serviceResponse.Success =true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "Cannot update application at this time..";
+            serviceResponse.Success = false;
+            return serviceResponse;
         }
 
-        public Task<ServiceResponse<bool>> UpdateDonorFormByPut(UpdateDonorInfoRequest updateDonorInfoRequest, string donorInfoID, string userId)
+        public async Task<ServiceResponse<bool>> UpdateDonorFormByPut(UpdateDonorInfoRequest updateDonorInfoRequest, string donorFormID, string userId)
         {
-            throw new NotImplementedException();
+            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
+
+             var donor = await GetDonorForm(donorFormID);
+            if (donor.Data == null)
+            {
+                serviceResponse.Message = "Donor application not found";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            if (donor.Data.UserId != userId)
+            {
+                serviceResponse.Message = "Not Authorized!";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            donor.Data.ReasonForDonation = updateDonorInfoRequest.ReasonForDonation;
+            donor.Data.DeviceSpecification = updateDonorInfoRequest.DeviceSpecification;
+            donor.Data.ItemOwnership = updateDonorInfoRequest.ItemOwnership;
+            donor.Data.DeviceCondition = updateDonorInfoRequest.DeviceCondition;
+
+            var result = await _donorFormDatastore.UpdateDonorFormAsync(donor.Data);
+            if (result)
+            {
+                serviceResponse.Message = "Application updated sucessfully..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "Cannot update application at this time..";
+            serviceResponse.Success = false;
+            return serviceResponse;
         }
     }
 }

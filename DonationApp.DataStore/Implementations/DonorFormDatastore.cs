@@ -1,33 +1,50 @@
-﻿using DonationApp.DataStore.Interfaces;
-using DonationApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DonationApp.DataStore.Interfaces;
+using DonationApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DonationApp.DataStore.Implementations
 {
     public class DonorFormDatastore : IDonorFormDatastore
     {
-        public Task<DonorForm> AddDonorFormAsync(DonorForm donorform)
+        private readonly DonationAppDBContext _donationAppDBContext;
+        public DonorFormDatastore(DonationAppDBContext donationAppDBContext)
         {
-            throw new NotImplementedException();
+            _donationAppDBContext = donationAppDBContext ?? throw new ArgumentNullException(nameof(donationAppDBContext));
         }
 
-        public Task<bool> DeleteDonorFormAsync(string donorFormID, string userId)
+        public async Task<DonorForm> AddDonorFormAsync(DonorForm donorform)
         {
-            throw new NotImplementedException();
+            var result = await _donationAppDBContext.DonorForm.AddAsync(donorform);
+            await _donationAppDBContext.SaveChangesAsync();
+            return result.Entity;
         }
 
-        public Task<DonorForm> GetDonorFormAsync(string donorFormID)
+        public async Task<bool> DeleteDonorFormAsync(string donorFormID, string userId)
         {
-            throw new NotImplementedException();
+            var donor = await _donationAppDBContext.DonorForm.FirstOrDefaultAsync(donor => donor.Id == donorFormID);
+            _donationAppDBContext.Remove(donor);
+            var result = await _donationAppDBContext.SaveChangesAsync();
+            return result > 0;
         }
 
-        public Task<bool> UpdateDonorFormAsync(DonorForm doneeUpdate)
+        public async Task<DonorForm> GetDonorFormAsync(string donorFormID)
         {
-            throw new NotImplementedException();
+            var donor = await _donationAppDBContext.DonorForm
+                 .FirstOrDefaultAsync(donor => donor.Id == donorFormID);
+            return donor;
+        }
+
+        public async Task<bool> UpdateDonorFormAsync(DonorForm donorUpdate)
+        {
+            var donor = _donationAppDBContext.DonorForm.FirstOrDefaultAsync(donor => donor.Id == donorUpdate.Id);
+            _donationAppDBContext.Update(donorUpdate);
+            var result = await _donationAppDBContext.SaveChangesAsync();
+            return result > 0;
         }
     }
 }
