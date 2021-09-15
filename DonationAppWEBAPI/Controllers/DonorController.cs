@@ -103,6 +103,7 @@ namespace DonationAppWEBAPI.Controllers
 
         [HttpDelete]
         [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Donor")]
         public async Task<IActionResult> DeleteDonorForm([FromQuery] string donorFormID)
         {
             try
