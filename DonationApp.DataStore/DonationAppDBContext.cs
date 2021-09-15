@@ -17,8 +17,8 @@ namespace DonationApp.DataStore
         }
         public DbSet<Item> Items { get; set; }
         public DbSet<Donation> Donations { get; set; }
-        public DbSet<Donee> Donees { get; set; }
+        public DbSet<DoneeApplication> DoneeApplication { get; set; }
         public DbSet<NGO> NGOs { get; set; }
-        public DbSet<Donor> Donors { get; set; }
+        public DbSet<DonorForm> DonorForm { get; set; }
            }
 }

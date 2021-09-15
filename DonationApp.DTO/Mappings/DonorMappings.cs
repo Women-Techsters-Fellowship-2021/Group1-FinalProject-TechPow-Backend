@@ -11,26 +11,45 @@ namespace DonationApp.Models.Mappings
    public class DonorMappings
     {
 
-        public static DonorInfoResponseDTO GetDonorInfoResponseDTO(Donor donor)
-        {
-            return new DonorInfoResponseDTO
-            {
+        //public static DonorInfoResponseDTO GetDonorInfoResponseDTO(DonorForm donor)
+        //{
+        //    return new DonorInfoResponseDTO
+        //    {
              
-            };
-        }
+        //    };
+        //}
 
-        public static DonorResponseDTO GetDonorResponseDTO(Donor donor)
+        public static DonorResponseDTO GetDonorResponseDTO(DonorForm donorForm)
         {
             return new DonorResponseDTO
             {
-             
+             FullName = donorForm.FullName,
+             PhoneNumber = donorForm.PhoneNumber,
+             HomeAddress = donorForm.HomeAddress,
+             Country  = donorForm.Country,
+             ReasonForDonation = donorForm.ReasonForDonation,
+             DeviceCondition = donorForm.ReasonForDonation,
+             ItemOwnership = donorForm.ItemOwnership,
+             DeviceSpecification = donorForm.DeviceSpecification,
+             UpdateRequest = donorForm.UpdateRequest,
+             Signature = donorForm.Signature
             };
         }
 
-        public static Donor GetRegDonor(DonorInfoRequestDTO donorinfoRequestDTO)
+        public static DonorForm GetRegDonorForm(DonorInfoRequestDTO donorinfoRequestDTO)
         {
-            return new Donor
+            return new DonorForm
             { 
+                FullName = donorinfoRequestDTO.FullName,
+                PhoneNumber = donorinfoRequestDTO.PhoneNumber,
+                HomeAddress = donorinfoRequestDTO.HomeAddress,
+                Country = donorinfoRequestDTO.Country,
+                ReasonForDonation = donorinfoRequestDTO.ReasonForDonation,
+                DeviceCondition = donorinfoRequestDTO.DeviceCondition,
+                ItemOwnership = donorinfoRequestDTO.ItemOwnership,
+                DeviceSpecification = donorinfoRequestDTO.DeviceSpecification,
+                UpdateRequest = donorinfoRequestDTO.UpdateRequest,
+                Signature = donorinfoRequestDTO.Signature
             };
                 
         }

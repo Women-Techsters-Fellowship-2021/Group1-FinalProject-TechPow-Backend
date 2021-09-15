@@ -15,7 +15,15 @@ namespace DonationApp.Models
         public DateTime DonationDate  { get; set; }
         public DonationStatus DonationStatus { get; set; }
 
+        //navigavtional properties
 
-}
+        public DoneeApplication DoneeApps{ get; set; }
+        public DonorForm DonorForms { get; set; }
+
+
+
+
+
+    }
     
 }

@@ -15,8 +15,9 @@ namespace DonationApp.BuisnessLogic.Interfaces
         Task<ServiceResponse<DoneeAppResponseDTO>> DoneeApplicationAsync(DoneeAppRequestDTO doneeAppRequestDTO);
         Task<ServiceResponse<bool>> UpdateDoneeAppByPut(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, string doneeID, string userId);
         Task<ServiceResponse<bool>> UpdateDoneeAppByPatch(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, string doneeID, string userId);
+        Task<ServiceResponse<bool>> UpdateDoneeAppStatusByPatch(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, string doneeID, string userId);
         Task<ServiceResponse<bool>> DeleteDoneeApp(string doneeID, string userId);
-        Task<ServiceResponse<Donee>> GetDoneeApp(string doneeID);
+        Task<ServiceResponse<DoneeApplication>> GetDoneeApp(string doneeID);
 
     }
 }

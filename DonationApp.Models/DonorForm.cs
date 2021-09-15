@@ -1,34 +1,27 @@
-﻿using System;
+﻿using DonationApp.Models.Enums;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DonationApp.DTO.UserApplicationDTOs
+namespace DonationApp.Models
 {
-    public class DonorInfoRequestDTO
+    public class DonorForm
     {
-        [Required]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public string FullName { get; set; }
-        [Required]
         public string PhoneNumber { get; set; }
-        [Required]
         public string HomeAddress { get; set; }
-        [Required]
         public string Country { get; set; }
-        [Required]
         public string ReasonForDonation { get; set; }
-        [Required]
         public string DeviceSpecification { get; set; }
-        [Required]
         public string ItemOwnership { get; set; }
-        [Required]
         public string DeviceCondition { get; set; }
-        [Required]
         public string UpdateRequest { get; set; }
-        [Required]
         public string Signature { get; set; }
-
+        
+        //Navigation properties
+        public AppUser user { get; set; }
     }
 }

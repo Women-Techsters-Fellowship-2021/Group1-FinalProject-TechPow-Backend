@@ -11,7 +11,9 @@ namespace DonationApp.DTO.UserApplicationDTOs
     {
         public string Id { get; set; }
         public string UserId { get; set; }
+        public string FullName { get; set; }
         public string DOB { get; set; }
+        public string PhoneNumber { get; set; }
         public string HomeAddress { get; set; }
         public string Country { get; set; }
         public string EduLevel { get; set; }
@@ -25,5 +27,6 @@ namespace DonationApp.DTO.UserApplicationDTOs
         public string OrgWebsite { get; set; }
         public string OrgContact { get; set; }
         public string Signature { get; set; }
+        public string ApplicationStatus { get; set; }
     }
 }

@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Mappings\NGOMappings.cs" />
+    <Compile Remove="UserApplicationDTOs\NGOInfoRequestDTO.cs" />
+    <Compile Remove="UserApplicationDTOs\NGOInfoResponseDTO.cs" />
+    <Compile Remove="UserApplicationDTOs\NGOResponseDTO.cs" />
+    <Compile Remove="UserApplicationDTOs\UpdateNGOInfoRequestDTO.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.9" />
   </ItemGroup>

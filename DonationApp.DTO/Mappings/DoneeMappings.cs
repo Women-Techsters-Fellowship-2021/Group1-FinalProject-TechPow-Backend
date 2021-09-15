@@ -10,7 +10,7 @@ namespace DonationApp.Models.Mappings
 {
     public class DoneeMappings
     {
-        public static DoneeAppResponseDTO GetDoneeRegResponseDTO(Donee donee)
+        public static DoneeAppResponseDTO GetDoneeRegResponseDTO(DoneeApplication donee)
         {
             return new DoneeAppResponseDTO
             {
@@ -21,39 +21,47 @@ namespace DonationApp.Models.Mappings
                 ReasonForApplication = donee.ReasonForApplication.ToString(),
                 ImageLink = donee.ImageLink,
                 EduLevel = donee.EduLevel.ToString(),
-                OrgName = donee.OrgName
+                OrgName = donee.OrgName,
+                ApplicationStatus = donee.ApplicationStatus
 
             };
         }
 
-        public static DoneeResponseDTO GetDoneeResponseDTO(Donee donee)
+        public static DoneeResponseDTO GetDoneeResponseDTO(DoneeApplication donee)
         {
             return new DoneeResponseDTO
             {
-                Country = donee.Country,
-                HomeAddress = donee.HomeAddress,
+
                 Id = donee.Id,
                 UserId = donee.UserId,
+                FullName = donee.FullName,
                 Gender = donee.Gender.ToString(),
+                Country = donee.Country,
+                HomeAddress = donee.HomeAddress,
                 ItemNeeded = donee.ItemNeeded.ToString(),
                 ReasonForApplication = donee.ReasonForApplication.ToString(),
                 ImageLink = donee.ImageLink,
                 EduLevel = donee.EduLevel.ToString(),
-                OrgName = donee.OrgName
+                OrgName = donee.OrgName,
+                ApplicationStatus = donee.ApplicationStatus,
+                PhoneNumber = donee.PhoneNumber
+                
+
             };
         }
 
-        public static Donee GetRegDonee(DoneeAppRequestDTO doneeAppRequestDTO)
+        public static DoneeApplication GetRegDonee(DoneeAppRequestDTO doneeAppRequestDTO)
         {
-            return new Donee
+            return new DoneeApplication
             {
-               UserId = doneeAppRequestDTO.UserID,
-                DOB  = doneeAppRequestDTO.DOB,
+                UserId = doneeAppRequestDTO.UserID,
+                FullName = doneeAppRequestDTO.FullName,
+                DOB = doneeAppRequestDTO.DOB,
                 HomeAddress = doneeAppRequestDTO.HomeAddress,
                 Country = doneeAppRequestDTO.Country,
                 EduLevel = doneeAppRequestDTO.EduLevel,
                 Gender = doneeAppRequestDTO.Gender,
-                ItemNeeded= doneeAppRequestDTO.ItemNeeded,
+                ItemNeeded = doneeAppRequestDTO.ItemNeeded,
                 ImageLink = doneeAppRequestDTO.ImageLink,
                 ReasonForApplication = doneeAppRequestDTO.ReasonForApplication,
                 LetterOfRecLink = doneeAppRequestDTO.LetterOfRecommendationLink,
@@ -61,8 +69,10 @@ namespace DonationApp.Models.Mappings
                 OrgContact = doneeAppRequestDTO.OrgContact,
                 OrgName = doneeAppRequestDTO.OrgName,
                 OrgWebsite = doneeAppRequestDTO.OrgWebsite,
-                Signature = doneeAppRequestDTO.Signature
-               
+                Signature = doneeAppRequestDTO.Signature,
+                ApplicationStatus = doneeAppRequestDTO.ApplicationStatus,
+                PhoneNumber = doneeAppRequestDTO.PhoneNumber
+
 
 
 

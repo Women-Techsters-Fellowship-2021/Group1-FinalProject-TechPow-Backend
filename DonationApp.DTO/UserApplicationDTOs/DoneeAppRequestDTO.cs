@@ -12,7 +12,12 @@ namespace DonationApp.DTO.UserApplicationDTOs
     {
         [Required]
         public string DOB { get; set; }
+        [Required]
         public string UserID { get; set; }
+        [Required]
+        public string FullName { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
         [Required]
         public string HomeAddress { get; set; }
         [Required]
@@ -27,9 +32,9 @@ namespace DonationApp.DTO.UserApplicationDTOs
         public string ReasonForApplication { get; set; }
         [Required]
         public string ImageLink { get; set; }
-        [Required]
+       
         public string LetterOfRecommendationLink { get; set; }
-        [Required]
+        
         public string NationalIdLink { get; set; }
         [Required]
         public string OrgName { get; set; }
@@ -39,6 +44,8 @@ namespace DonationApp.DTO.UserApplicationDTOs
         public string OrgContact { get; set; }
         [Required]
         public string Signature { get; set; }
+        [Required]
+        public string ApplicationStatus { get; set; } = "Pending";
 
 
 

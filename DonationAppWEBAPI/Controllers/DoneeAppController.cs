@@ -45,6 +45,7 @@ namespace DonationAppWEBAPI.Controllers
 
         [HttpPost]
         [Authorize]
+      
         public async Task<IActionResult> AddApplication(DoneeAppRequestDTO doneeAppRequestDTO)
         {
             try
@@ -92,6 +93,26 @@ namespace DonationAppWEBAPI.Controllers
             {
                 var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
                 var result = await _doneeServices.UpdateDoneeAppByPatch(updateDoneeAppRequestDTO, doneeID, loggedInUser);
+                if (result.Success)
+                {
+                    return Ok(result.Message);
+                }
+                return BadRequest(result.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPatch("AppStatusUpdate")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateDoneeAppStatus_Patch(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, [FromQuery] string doneeID)
+        {
+            try
+            {
+                var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
+                var result = await _doneeServices.UpdateDoneeAppStatusByPatch(updateDoneeAppRequestDTO, doneeID, loggedInUser);
                 if (result.Success)
                 {
                     return Ok(result.Message);

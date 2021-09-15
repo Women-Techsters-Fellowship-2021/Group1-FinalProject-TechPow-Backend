@@ -10,9 +10,10 @@ namespace DonationApp.DataStore.Interfaces
 {
     public interface IDoneeAppDatastore
     {
-        Task<Donee> AddDoneeAppAsync(Donee donee);
-        Task<Donee> GetDoneeAppAsync(string doneeID);
+        Task<DoneeApplication> AddDoneeAppAsync(DoneeApplication donee);
+        Task<DoneeApplication> GetDoneeAppAsync(string doneeID);
         Task<bool> DeleteDoneeAppAsync(string DoneeID, string userId);
-        Task<bool> UpdateDoneeAppAsync(Donee doneeUpdate);
+        Task<bool> UpdateDoneeAppAsync(DoneeApplication doneeUpdate);
+        Task<bool> UpdateDoneeAppStatus(DoneeApplication doneeAppStatusUpdate);
     }
 }

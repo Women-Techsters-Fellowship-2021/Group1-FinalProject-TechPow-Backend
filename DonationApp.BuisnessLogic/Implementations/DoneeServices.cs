@@ -53,11 +53,12 @@ namespace DonationApp.BuisnessLogic.Implementations
         {
             ServiceResponse<DoneeAppResponseDTO> serviceResponse = new ServiceResponse<DoneeAppResponseDTO>();
            
-            Donee newDonee = new Donee
+            DoneeApplication newDonee = new DoneeApplication
             {
                 DOB = doneeAppRequestDTO.DOB,
                 HomeAddress = doneeAppRequestDTO.HomeAddress,
                 UserId = doneeAppRequestDTO.UserID,
+                FullName = doneeAppRequestDTO.FullName,
                 Country = doneeAppRequestDTO.Country,
                 EduLevel = doneeAppRequestDTO.EduLevel,
                 Gender = doneeAppRequestDTO.Gender,
@@ -69,7 +70,8 @@ namespace DonationApp.BuisnessLogic.Implementations
                 OrgName = doneeAppRequestDTO.OrgName,
                 OrgContact = doneeAppRequestDTO.OrgContact,
                 OrgWebsite = doneeAppRequestDTO.OrgWebsite,
-                Signature = doneeAppRequestDTO.Signature
+                Signature = doneeAppRequestDTO.Signature,
+                PhoneNumber = doneeAppRequestDTO.PhoneNumber
 
             };
 
@@ -86,9 +88,9 @@ namespace DonationApp.BuisnessLogic.Implementations
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Donee>> GetDoneeApp(string doneeID)
+        public async Task<ServiceResponse<DoneeApplication>> GetDoneeApp(string doneeID)
         {
-            ServiceResponse<Donee> serviceResponse = new ServiceResponse<Donee>();
+            ServiceResponse<DoneeApplication> serviceResponse = new ServiceResponse<DoneeApplication>();
 
             var donee = await _doneeAppDatastore.GetDoneeAppAsync(doneeID);
             if(donee !=null)
@@ -116,7 +118,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             }
             if (donee.Data.UserId != userId)
             {
-                serviceResponse.Message = "Not Authorrized!";
+                serviceResponse.Message = "Not Authorized!";
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
@@ -124,7 +126,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             donee.Data.Country = updateDoneeAppRequestDTO.Country ?? donee.Data.Country;
             donee.Data.ImageLink = updateDoneeAppRequestDTO.ImageLink ?? donee.Data.ImageLink;
             donee.Data.EduLevel = updateDoneeAppRequestDTO.EduLevel ?? donee.Data.EduLevel;
-
+           donee.Data.PhoneNumber = updateDoneeAppRequestDTO.PhoneNumber ?? donee.Data.PhoneNumber;
             var result = await _doneeAppDatastore.UpdateDoneeAppAsync(donee.Data);
             if(result)
             {
@@ -136,9 +138,35 @@ namespace DonationApp.BuisnessLogic.Implementations
             serviceResponse.Success = false;
             return serviceResponse;
         }
-                
 
-       public async Task<ServiceResponse<bool>> UpdateDoneeAppByPut(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, string doneeID, string userId)
+        public async Task<ServiceResponse<bool>> UpdateDoneeAppStatusByPatch(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, string doneeID, string userId)
+        {
+            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
+
+            var donee = await GetDoneeApp(doneeID);
+            if (donee.Data == null)
+            {
+                serviceResponse.Message = "Donee application not found";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+           
+            donee.Data.ApplicationStatus = updateDoneeAppRequestDTO.ApplicationStatus ?? donee.Data.ApplicationStatus;
+
+            var result = await _doneeAppDatastore.UpdateDoneeAppStatus(donee.Data);
+            if (result)
+            {
+                serviceResponse.Message = "Application status updated sucessfully..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "Cannot update application status at this time..";
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
+
+
+        public async Task<ServiceResponse<bool>> UpdateDoneeAppByPut(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, string doneeID, string userId)
         {
             ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
 
@@ -158,7 +186,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             donee.Data.HomeAddress = updateDoneeAppRequestDTO.HomeAddress;
             donee.Data.Country = updateDoneeAppRequestDTO.Country;
             donee.Data.ImageLink = updateDoneeAppRequestDTO.ImageLink;
-            donee.Data.EduLevel = updateDoneeAppRequestDTO.EduLevel; ;
+            donee.Data.EduLevel = updateDoneeAppRequestDTO.EduLevel;
 
             var result = await _doneeAppDatastore.UpdateDoneeAppAsync(donee.Data);
             if (result)

@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace DonationApp.Models
 {
-   public class Donee
+   public class DoneeApplication
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
+
+        public string  FullName { get; set; }
         public string UserId { get; set; }
         public string DOB { get; set; }
+        public string PhoneNumber{ get; set; }
         public string HomeAddress { get; set; }
         public string Country { get; set; }
         public string EduLevel{ get; set; }
@@ -25,6 +28,7 @@ namespace DonationApp.Models
         public string OrgWebsite { get; set; }
         public string OrgContact { get; set; }
         public string Signature{ get; set; }
+        public string ApplicationStatus { get; set; }
 
 
         //Navigational Properties

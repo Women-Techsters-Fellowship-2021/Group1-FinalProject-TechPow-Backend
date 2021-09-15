@@ -44,7 +44,7 @@ namespace DonationApp.BuisnessLogic.Implementations
              (audience: _configuration["JWTSettings:Audience"],
               issuer: _configuration["JWTSettings:Issuer"],
               claims: authClaims,
-              expires: DateTime.Now.AddMinutes(30),
+              expires: DateTime.Now.AddMinutes(100),
               signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256));
 
             return new JwtSecurityTokenHandler().WriteToken(token);
