@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DonationAppWEBAPI.Controllers
 {
-    [Route("api/v1[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class DonorController : ControllerBase
     {
@@ -40,10 +41,9 @@ namespace DonationAppWEBAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-
         [HttpPost]
-        [Authorize]   
-        public async Task<IActionResult> AddForm(DonorInfoRequestDTO donorInfoRequestDTO)
+        [Authorize(Roles = "Donor")]
+        public async Task<IActionResult> AddDonorForm(DonorInfoRequestDTO donorInfoRequestDTO)
         {
             try
             {
@@ -102,14 +102,14 @@ namespace DonationAppWEBAPI.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [Authorize(Roles = "Donor")]
         public async Task<IActionResult> DeleteDonorForm([FromQuery] string donorFormID)
         {
             try
             {
                 var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
-                var result = await _donorServices.DeleteDonorForm( donorFormID, loggedInUser);
+                var result = await _donorServices.DeleteDonorForm(donorFormID, loggedInUser);
                 if (result.Success)
                 {
                     return Ok(result.Message);

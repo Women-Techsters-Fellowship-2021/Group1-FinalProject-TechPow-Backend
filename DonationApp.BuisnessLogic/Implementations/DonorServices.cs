@@ -55,6 +55,7 @@ namespace DonationApp.BuisnessLogic.Implementations
 
             DonorForm newDonor = new DonorForm
             {
+                UserId = donorInfoRequestDTO.UserId,
                 FullName = donorInfoRequestDTO.FullName,
                 PhoneNumber = donorInfoRequestDTO.PhoneNumber,
                 HomeAddress = donorInfoRequestDTO.HomeAddress,
@@ -72,11 +73,11 @@ namespace DonationApp.BuisnessLogic.Implementations
             if (newdonor != null)
             {
                 serviceResponse.Data = DonorMappings.GetDonorResponseDTO(newdonor);
-                serviceResponse.Message = "Application Submitted Successfully...";
+                serviceResponse.Message = "Donation submitted Successfully...";
                 serviceResponse.Success = true;
                 return serviceResponse;
             }
-            serviceResponse.Message = "Cannot submit application at this time...";
+            serviceResponse.Message = "Cannot process donation at this time...";
             serviceResponse.Success = false;
             return serviceResponse;
         }
@@ -119,16 +120,16 @@ namespace DonationApp.BuisnessLogic.Implementations
             donor.Data.DeviceSpecification = updateDonorInfoRequest.DeviceSpecification ?? donor.Data.DeviceSpecification;
             donor.Data.ItemOwnership = updateDonorInfoRequest.ItemOwnership ?? donor.Data.ItemOwnership;
             donor.Data.DeviceCondition = updateDonorInfoRequest.DeviceCondition ?? donor.Data.DeviceCondition;
-            donor.Data.Signature = updateDonorInfoRequest.Signature ?? donor.Data.Signature;
+            //donor.Data.Signature = updateDonorInfoRequest.Signature ?? donor.Data.Signature;
            
             var result = await _donorFormDatastore.UpdateDonorFormAsync(donor.Data);
             if(result)
             {
-                serviceResponse.Message = "Application updated sucessfully..";
+                serviceResponse.Message = "Donation details updated sucessfully..";
                 serviceResponse.Success =true;
                 return serviceResponse;
             }
-            serviceResponse.Message = "Cannot update application at this time..";
+            serviceResponse.Message = "Cannot update donation details at this time..";
             serviceResponse.Success = false;
             return serviceResponse;
         }
@@ -158,11 +159,11 @@ namespace DonationApp.BuisnessLogic.Implementations
             var result = await _donorFormDatastore.UpdateDonorFormAsync(donor.Data);
             if (result)
             {
-                serviceResponse.Message = "Application updated sucessfully..";
+                serviceResponse.Message = "Donation details updated sucessfully..";
                 serviceResponse.Success = true;
                 return serviceResponse;
             }
-            serviceResponse.Message = "Cannot update application at this time..";
+            serviceResponse.Message = "Cannot update donation details at this time..";
             serviceResponse.Success = false;
             return serviceResponse;
         }

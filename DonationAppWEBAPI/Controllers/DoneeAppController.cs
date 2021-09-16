@@ -44,8 +44,8 @@ namespace DonationAppWEBAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize]
-      
+        [Authorize(Roles = "Donee")]
+
         public async Task<IActionResult> AddApplication(DoneeAppRequestDTO doneeAppRequestDTO)
         {
             try
