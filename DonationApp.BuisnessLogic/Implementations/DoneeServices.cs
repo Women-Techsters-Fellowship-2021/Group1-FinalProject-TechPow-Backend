@@ -104,6 +104,23 @@ namespace DonationApp.BuisnessLogic.Implementations
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<List<DoneeApplication>>> GetAllDoneeApplications()
+        {
+            ServiceResponse<List<DoneeApplication >> serviceResponse = new ServiceResponse<List<DoneeApplication >> ();
+            var allDoneeApplications = await _doneeAppDatastore.GetAllDoneeAppAsync();
+            if (!(allDoneeApplications.Count == 0))
+            {
+                serviceResponse.Data = allDoneeApplications;
+                serviceResponse.Message = "Donee Applications found..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "Could not fetch donee applications..";
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
+
+
         public async Task<ServiceResponse<bool>> UpdateDoneeAppByPatch(UpdateDoneeAppRequestDTO updateDoneeAppRequestDTO, string doneeID, string userId)
         {
             ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
@@ -198,5 +215,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             serviceResponse.Success = false;
             return serviceResponse;
         }
+
+        
     }
 }

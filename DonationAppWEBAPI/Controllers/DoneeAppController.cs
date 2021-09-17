@@ -1,5 +1,6 @@
 ﻿using DonationApp.BuisnessLogic.Interfaces;
 using DonationApp.DTO.UserApplicationDTOs;
+using DonationApp.Models;
 using DonationApp.Models.Mappings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,8 @@ namespace DonationAppWEBAPI.Controllers
     public class DoneeAppController : ControllerBase
     {
         private readonly IDoneeServices _doneeServices;
+
+
         public DoneeAppController(IDoneeServices doneeServices)
         {
             _doneeServices = doneeServices;
@@ -42,6 +45,43 @@ namespace DonationAppWEBAPI.Controllers
             }
 
         }
+
+        [HttpGet("AllDoneeApp")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllDoneeApplications()
+        {
+            List<DoneeResponseDTO> resultList = new List<DoneeResponseDTO>();
+            try
+            {
+                var allDoneeApplication = await _doneeServices.GetAllDoneeApplications();
+                if (!allDoneeApplication.Success)
+                {
+                    return BadRequest(allDoneeApplication);
+                }
+                for (int i = 0; i < allDoneeApplication.Data.Count; i++)
+                {
+                    var result = DoneeMappings.GetDoneeResponseDTO(allDoneeApplication.Data[i]);
+                    if (!(result == null))
+                    {
+                        resultList.Add(result);
+                    }
+                }
+                if (!(resultList.Count == 0))
+                {
+                    return Ok(resultList);
+                }
+                return NotFound(resultList);
+
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+        }
+
+
 
         [HttpPost]
         [Authorize(Roles = "Donee")]
@@ -126,13 +166,13 @@ namespace DonationAppWEBAPI.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteDoneeApp([FromQuery] string doneeID)
         {
             try
             {
                 var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
-                var result = await _doneeServices.DeleteDoneeApp( doneeID, loggedInUser);
+                var result = await _doneeServices.DeleteDoneeApp(doneeID, loggedInUser);
                 if (result.Success)
                 {
                     return Ok(result.Message);

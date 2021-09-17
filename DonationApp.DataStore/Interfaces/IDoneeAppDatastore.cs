@@ -1,4 +1,5 @@
-﻿using DonationApp.Models;
+﻿using DonationApp.DTO.UserApplicationDTOs;
+using DonationApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace DonationApp.DataStore.Interfaces
         Task<bool> DeleteDoneeAppAsync(string DoneeID, string userId);
         Task<bool> UpdateDoneeAppAsync(DoneeApplication doneeUpdate);
         Task<bool> UpdateDoneeAppStatus(DoneeApplication doneeAppStatusUpdate);
+        Task<List<DoneeApplication>> GetAllDoneeAppAsync();
+
     }
 }

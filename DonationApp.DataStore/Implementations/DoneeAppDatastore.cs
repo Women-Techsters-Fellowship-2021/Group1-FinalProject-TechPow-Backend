@@ -1,4 +1,5 @@
 ﻿using DonationApp.DataStore.Interfaces;
+using DonationApp.DTO.UserApplicationDTOs;
 using DonationApp.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -52,6 +53,14 @@ namespace DonationApp.DataStore.Implementations
             _donationAppDBContext.Update(doneeAppStatusUpdate);
             var result = await _donationAppDBContext.SaveChangesAsync();
             return result > 0;
+        }
+
+        public async Task<List<DoneeApplication>> GetAllDoneeAppAsync()
+        {
+            var doneeApplications = await _donationAppDBContext.DoneeApplication.ToListAsync();
+            return doneeApplications;
+
+
         }
     }
 }
