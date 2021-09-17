@@ -56,7 +56,7 @@ namespace DonationAppWEBAPI
             services.AddDbContext<DonationAppDBContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DBConnection"));
-                options.UseSqlServer(Configuration.GetConnectionString("HostedDBConnection"));
+               //options.UseSqlServer(Configuration.GetConnectionString("HostedDBConnection"));
                 // options.UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]);
 
             });
