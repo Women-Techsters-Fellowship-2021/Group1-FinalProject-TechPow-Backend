@@ -24,7 +24,7 @@ namespace DonationApp.DataStore.Implementations
             return result.Entity;
         }
 
-        public async Task<bool> DeleteDoneeAppAsync(string DoneeID, string userId)
+        public async Task<bool> DeleteDoneeAppAsync(string DoneeID)
         {
             var donee = await _donationAppDBContext.DoneeApplication.FirstOrDefaultAsync(donee => donee.Id == DoneeID);
             _donationAppDBContext.Remove(donee);

@@ -6,6 +6,7 @@ using DonationApp.Models;
 using DonationApp.Models.Mappings;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             _doneeAppDatastore = doneeAppDatastore;
         }
         
-        public async Task<ServiceResponse<bool>> DeleteDoneeApp(string doneeID, string userId)
+        public async Task<ServiceResponse<bool>> DeleteDoneeApp(string doneeID)
         {
             ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
 
@@ -31,13 +32,13 @@ namespace DonationApp.BuisnessLogic.Implementations
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
-            if (donee.Data.UserId == userId)
-            {
-                serviceResponse.Message = "Not Authorrized!";
-                serviceResponse.Success = false;
-                return serviceResponse;
-            }
-            var response = await _doneeAppDatastore.DeleteDoneeAppAsync(doneeID, userId);
+            //if (donee.Data.UserId == userId)
+            //{
+            //    serviceResponse.Message = "Not Authorrized!";
+            //    serviceResponse.Success = false;
+            //    return serviceResponse;
+            //}
+            var response = await _doneeAppDatastore.DeleteDoneeAppAsync(doneeID);
             if (response)
             {
                 serviceResponse.Message = "Donee application deleted successfully..";
@@ -58,7 +59,8 @@ namespace DonationApp.BuisnessLogic.Implementations
                 DOB = doneeAppRequestDTO.DOB,
                 HomeAddress = doneeAppRequestDTO.HomeAddress,
                 UserId = doneeAppRequestDTO.UserID,
-                FullName = doneeAppRequestDTO.FullName,
+                FirstName = doneeAppRequestDTO.FirstName,
+                LastName = doneeAppRequestDTO.LastName,
                 Country = doneeAppRequestDTO.Country,
                 EduLevel = doneeAppRequestDTO.EduLevel,
                 Gender = doneeAppRequestDTO.Gender,

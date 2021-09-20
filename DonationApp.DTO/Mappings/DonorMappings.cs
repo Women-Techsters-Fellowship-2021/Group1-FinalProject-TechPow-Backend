@@ -17,8 +17,9 @@ namespace DonationApp.Models.Mappings
            {
              Id = donor.Id,
              UserId = donor.UserId,
-             FullName = donor.FullName,
-             Country  = donor.Country,
+             FirstName = donor.FirstName,
+                LastName = donor.LastName,
+               Country  = donor.Country,
              ReasonForDonation = donor.ReasonForDonation,
              DeviceSpecification = donor.DeviceSpecification,
            };
@@ -30,8 +31,9 @@ namespace DonationApp.Models.Mappings
             {
              Id = donorForm.Id,
              UserId = donorForm.UserId,
-             FullName = donorForm.FullName,
-             PhoneNumber = donorForm.PhoneNumber,
+             FirstName = donorForm.FirstName,
+                LastName = donorForm.LastName,
+                PhoneNumber = donorForm.PhoneNumber,
              HomeAddress = donorForm.HomeAddress,
              Country  = donorForm.Country,
              ReasonForDonation = donorForm.ReasonForDonation,
@@ -48,7 +50,8 @@ namespace DonationApp.Models.Mappings
             return new DonorForm
             { 
                 UserId = donorInfoRequestDTO.UserId,
-                FullName = donorInfoRequestDTO.FullName,
+               FirstName = donorInfoRequestDTO.FirstName,
+                LastName = donorInfoRequestDTO.LastName,
                 PhoneNumber = donorInfoRequestDTO.PhoneNumber,
                 HomeAddress = donorInfoRequestDTO.HomeAddress,
                 Country = donorInfoRequestDTO.Country,

@@ -108,8 +108,8 @@ namespace DonationAppWEBAPI.Controllers
         {
             try
             {
-                var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
-                var result = await _donorServices.DeleteDonorForm(donorFormID, loggedInUser);
+                //var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
+                var result = await _donorServices.DeleteDonorForm(donorFormID);
                 if (result.Success)
                 {
                     return Ok(result.Message);

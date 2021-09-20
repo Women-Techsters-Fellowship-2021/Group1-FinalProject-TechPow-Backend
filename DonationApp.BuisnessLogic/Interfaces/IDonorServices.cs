@@ -13,7 +13,7 @@ namespace DonationApp.BuisnessLogic.Interfaces
         Task<ServiceResponse<DonorResponseDTO>> DonorFormAsync(DonorInfoRequestDTO donorInfoRequestDTO);
         Task<ServiceResponse<bool>> UpdateDonorFormByPut(UpdateDonorInfoRequest updateDonorInfoRequest, string donorFormID, string userId);
         Task<ServiceResponse<bool>> UpdateDonorFormByPatch(UpdateDonorInfoRequest updateDonorInfoRequest, string donorFormID, string userId);
-        Task<ServiceResponse<bool>> DeleteDonorForm(string donorFormID, string userId);
+        Task<ServiceResponse<bool>> DeleteDonorForm(string donorFormID);
         Task<ServiceResponse<DonorForm>> GetDonorForm(string donorFormID);
     }
 }

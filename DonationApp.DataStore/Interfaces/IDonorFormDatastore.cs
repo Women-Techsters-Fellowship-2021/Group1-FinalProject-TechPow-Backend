@@ -11,7 +11,7 @@ namespace DonationApp.DataStore.Interfaces
     {
         Task<DonorForm> AddDonorFormAsync(DonorForm donorform);
         Task<DonorForm> GetDonorFormAsync(string donorFormID);
-        Task<bool> DeleteDonorFormAsync(string donorFormID, string userId);
+        Task<bool> DeleteDonorFormAsync(string donorFormID);
         Task<bool> UpdateDonorFormAsync(DonorForm donorUpdate);
     }
 }

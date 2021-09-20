@@ -171,8 +171,8 @@ namespace DonationAppWEBAPI.Controllers
         {
             try
             {
-                var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
-                var result = await _doneeServices.DeleteDoneeApp(doneeID, loggedInUser);
+               // var loggedInUser = HttpContext.User.FindFirst(user => user.Type == ClaimTypes.NameIdentifier).Value;
+                var result = await _doneeServices.DeleteDoneeApp(doneeID);
                 if (result.Success)
                 {
                     return Ok(result.Message);

@@ -13,7 +13,7 @@ namespace DonationApp.DataStore.Interfaces
     {
         Task<DoneeApplication> AddDoneeAppAsync(DoneeApplication donee);
         Task<DoneeApplication> GetDoneeAppAsync(string doneeID);
-        Task<bool> DeleteDoneeAppAsync(string DoneeID, string userId);
+        Task<bool> DeleteDoneeAppAsync(string DoneeID);
         Task<bool> UpdateDoneeAppAsync(DoneeApplication doneeUpdate);
         Task<bool> UpdateDoneeAppStatus(DoneeApplication doneeAppStatusUpdate);
         Task<List<DoneeApplication>> GetAllDoneeAppAsync();

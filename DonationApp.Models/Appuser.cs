@@ -12,9 +12,9 @@ namespace DonationApp.Models
    public class AppUser : IdentityUser
     {
         [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
+        //public string FirstName { get; set; }
+        //[Required]
+        //public string LastName { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
          public string Address { get; set; }

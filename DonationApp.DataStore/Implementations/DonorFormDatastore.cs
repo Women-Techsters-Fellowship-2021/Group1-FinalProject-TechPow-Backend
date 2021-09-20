@@ -24,7 +24,7 @@ namespace DonationApp.DataStore.Implementations
             return result.Entity;
         }
 
-        public async Task<bool> DeleteDonorFormAsync(string donorFormID, string userId)
+        public async Task<bool> DeleteDonorFormAsync(string donorFormID)
         {
             var donor = await _donationAppDBContext.DonorForm.FirstOrDefaultAsync(donor => donor.Id == donorFormID);
             _donationAppDBContext.Remove(donor);

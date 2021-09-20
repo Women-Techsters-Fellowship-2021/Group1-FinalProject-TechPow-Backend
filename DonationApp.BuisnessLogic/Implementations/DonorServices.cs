@@ -20,7 +20,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             _donorFormDatastore = donorFormDatastore ?? throw new ArgumentNullException(nameof(donorFormDatastore));
         }
         
-        public async Task<ServiceResponse<bool>> DeleteDonorForm(string donorFormID, string userId)
+        public async Task<ServiceResponse<bool>> DeleteDonorForm(string donorFormID)
         {
             ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
 
@@ -31,13 +31,13 @@ namespace DonationApp.BuisnessLogic.Implementations
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
-            if (donor.Data.UserId == userId)
-            {
-                serviceResponse.Message = "Not Authorrized!";
-                serviceResponse.Success = false;
-                return serviceResponse;
-            }
-            var response = await _donorFormDatastore.DeleteDonorFormAsync(donorFormID, userId);
+            //if (donor.Data.UserId == userId)
+            //{
+            //    serviceResponse.Message = "Not Authorrized!";
+            //    serviceResponse.Success = false;
+            //    return serviceResponse;
+            //}
+            var response = await _donorFormDatastore.DeleteDonorFormAsync(donorFormID);
             if (response)
             {
                 serviceResponse.Message = "Donor application deleted successfully..";
@@ -56,7 +56,8 @@ namespace DonationApp.BuisnessLogic.Implementations
             DonorForm newDonor = new DonorForm
             {
                 UserId = donorInfoRequestDTO.UserId,
-                FullName = donorInfoRequestDTO.FullName,
+                FirstName = donorInfoRequestDTO.FirstName,
+            LastName = donorInfoRequestDTO.LastName,
                 PhoneNumber = donorInfoRequestDTO.PhoneNumber,
                 HomeAddress = donorInfoRequestDTO.HomeAddress,
                 Country = donorInfoRequestDTO.Country,

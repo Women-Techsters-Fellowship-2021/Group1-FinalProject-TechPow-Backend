@@ -15,12 +15,10 @@ namespace DonationApp.DTO.Mappings
             return new UserRegResponseDTO
             {
                 Id = user.Id,
-                FirstName = user.FirstName,
+                //FirstName = user.FirstName,
                 UserName = user.UserName,
-                LastName = user.LastName,
+                // LastName = user.LastName,
                 Email = user.Email,
-                
-
             };
         }
 
@@ -29,11 +27,11 @@ namespace DonationApp.DTO.Mappings
             return new UserResponseDTO
             {
                 Id = user.Id,
-                FirstName = user.FirstName,
+                // FirstName = user.FirstName,
                 UserName = user.UserName,
-                LastName = user.LastName,
+                //LastName = user.LastName,
                 Email = user.Email,
-                
+
             };
         }
 
@@ -41,12 +39,12 @@ namespace DonationApp.DTO.Mappings
         {
             return new AppUser
             {
-                FirstName = userRegRequestDTO.FirstName,
-                LastName = userRegRequestDTO.LastName,
+                //FirstName = userRegRequestDTO.FirstName,
+                //LastName = userRegRequestDTO.LastName,
                 Email = userRegRequestDTO.Email,
                 UserName = string.IsNullOrWhiteSpace(userRegRequestDTO.UserName) ? userRegRequestDTO.Email : userRegRequestDTO.UserName,
-               
-               
+
+
             };
         }
     }

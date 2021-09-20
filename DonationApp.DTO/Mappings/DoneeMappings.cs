@@ -33,7 +33,8 @@ namespace DonationApp.Models.Mappings
 
                 Id = donee.Id,
                 UserId = donee.UserId,
-                FullName = donee.FullName,
+                FirstName = donee.FirstName,
+                LastName = donee.LastName,
                 Gender = donee.Gender.ToString(),
                 Country = donee.Country,
                 HomeAddress = donee.HomeAddress,
@@ -52,7 +53,8 @@ namespace DonationApp.Models.Mappings
             return new DoneeApplication
             {
                 UserId = doneeAppRequestDTO.UserID,
-                FullName = doneeAppRequestDTO.FullName,
+                FirstName = doneeAppRequestDTO.FirstName,
+                LastName = doneeAppRequestDTO.LastName,
                 DOB = doneeAppRequestDTO.DOB,
                 HomeAddress = doneeAppRequestDTO.HomeAddress,
                 Country = doneeAppRequestDTO.Country,
