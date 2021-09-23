@@ -46,5 +46,13 @@ namespace DonationApp.DataStore.Implementations
             var result = await _donationAppDBContext.SaveChangesAsync();
             return result > 0;
         }
+
+        public async Task<List<DonorForm>> GetAllDonorAppAsync()
+        {
+            var donorApplications = await _donationAppDBContext.DonorForm.ToListAsync();
+            return donorApplications;
+
+
+        }
     }
 }

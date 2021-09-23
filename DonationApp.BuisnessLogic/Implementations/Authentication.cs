@@ -35,7 +35,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             {
                 await _userManager.AddToRoleAsync(user, userRegRequestDTO.TypeofUser);
                 serviceResponse.Data = AppuserMapping.GetUserRegResponseDTO(user);
-                serviceResponse.Message = "User Registered Successfully. Please Login to continue..";
+                serviceResponse.Message = "User Registered Successfully. Please check your email for further instructions..";
                 serviceResponse.Success = true;
                 return serviceResponse;
             }

@@ -52,6 +52,7 @@ namespace DonationAppWEBAPI
             services.AddScoped<IItemDatastore, ItemDatastore>();
             services.AddScoped<IDonationDatastore,DonationDatastore>();
             services.AddScoped<ITokenGenerator, TokenGenerator>();
+            //services.AddScoped<IEmailService, EmailService>();
 
             services.AddDbContext<DonationAppDBContext>(options =>
             {
@@ -132,6 +133,7 @@ namespace DonationAppWEBAPI
                 });
             });
 
+           
             services.AddCors(options =>
             {
                 options.AddPolicy(name: AllowedOrigins,
@@ -140,9 +142,21 @@ namespace DonationAppWEBAPI
                                       builder.WithOrigins("http://localhost:3000")
                                       .AllowAnyHeader()
                                       .AllowAnyMethod();
-                                                  
+
                                   });
             });
+
+            //New Cors Service for email
+
+            services.AddCors(cors =>
+            {
+                cors.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            }
+                );
+
+            //Mail Services
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IEmailService, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

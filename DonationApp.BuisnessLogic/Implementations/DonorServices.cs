@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DonationApp.BuisnessLogic.Interfaces;
+using DonationApp.DataStore.Implementations;
 using DonationApp.DataStore.Interfaces;
 using DonationApp.DTO.AppuserDTOs;
 using DonationApp.DTO.UserApplicationDTOs;
@@ -79,6 +80,22 @@ namespace DonationApp.BuisnessLogic.Implementations
                 return serviceResponse;
             }
             serviceResponse.Message = "Cannot process donation at this time...";
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<DonorForm>>> GetAllDonorApplications()
+        {
+            ServiceResponse<List<DonorForm>> serviceResponse = new ServiceResponse<List<DonorForm>>();
+            var allDonorApplications = await _donorFormDatastore.GetAllDonorAppAsync();
+            if (!(allDonorApplications.Count == 0))
+            {
+                serviceResponse.Data = allDonorApplications;
+                serviceResponse.Message = "Donor Applications found..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "Could not fetch donor applications..";
             serviceResponse.Success = false;
             return serviceResponse;
         }

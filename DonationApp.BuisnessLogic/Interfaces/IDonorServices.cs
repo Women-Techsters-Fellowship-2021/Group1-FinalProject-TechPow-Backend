@@ -15,5 +15,6 @@ namespace DonationApp.BuisnessLogic.Interfaces
         Task<ServiceResponse<bool>> UpdateDonorFormByPatch(UpdateDonorInfoRequest updateDonorInfoRequest, string donorFormID, string userId);
         Task<ServiceResponse<bool>> DeleteDonorForm(string donorFormID);
         Task<ServiceResponse<DonorForm>> GetDonorForm(string donorFormID);
+        Task<ServiceResponse<List<DonorForm>>> GetAllDonorApplications();
     }
 }

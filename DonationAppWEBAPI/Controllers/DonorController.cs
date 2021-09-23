@@ -1,4 +1,5 @@
-﻿using DonationApp.BuisnessLogic.Interfaces;
+﻿using DonationApp.BuisnessLogic.Implementations;
+using DonationApp.BuisnessLogic.Interfaces;
 using DonationApp.DTO.UserApplicationDTOs;
 using DonationApp.Models.Mappings;
 using Microsoft.AspNetCore.Authorization;
@@ -121,5 +122,41 @@ namespace DonationAppWEBAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        [HttpGet("AllDonorApp")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllDonorApplications()
+        {
+            List<DonorResponseDTO> resultList = new List<DonorResponseDTO>();
+try
+{
+                var allDonorApplication = await _donorServices.GetAllDonorApplications();
+                if (!allDonorApplication.Success)
+                {
+                    return BadRequest(allDonorApplication);
+                }
+                for (int i = 0; i < allDonorApplication.Data.Count; i++)
+                {
+                    var result = DonorMappings.GetDonorResponseDTO(allDonorApplication.Data[i]);
+                    if (!(result == null))
+                    {
+                        resultList.Add(result);
+                    }
+                }
+                if (!(resultList.Count == 0))
+                {
+                    return Ok(resultList);
+                }
+                return NotFound(resultList);
+
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+        }
+
     }
 }
