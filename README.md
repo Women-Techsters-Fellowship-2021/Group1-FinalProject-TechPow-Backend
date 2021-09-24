@@ -1,2 +1,3 @@
 # Group1-FinalProject-TechPow-BackEnd
-Webapi repository
+
+TechPow WebAPI developed with ASP.NET/C#
