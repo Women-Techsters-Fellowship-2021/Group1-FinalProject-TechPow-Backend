@@ -1,6 +1,7 @@
 ﻿using DonationApp.BuisnessLogic.Interfaces;
 using DonationApp.DTO.AppuserDTOs;
 using DonationApp.DTO.Mappings;
+using DonationApp.DTO.UserApplicationDTOs;
 using DonationApp.Models;
 using DonationApp.Models.Enums;
 using DonationApp.Models.Mappings;
@@ -40,7 +41,7 @@ namespace DonationApp.BuisnessLogic.Implementations
                 return serviceResponse;
             }
 
-           
+
             foreach (var error in result.Errors)
             {
                 serviceResponse.Errors.Add(error.Description);
@@ -63,16 +64,16 @@ namespace DonationApp.BuisnessLogic.Implementations
             {
                 if (await _userManager.CheckPasswordAsync(user, userLoginRequestDTO.Password))
                 {
-                                       
+
                     IList<string> roles = await _userManager.GetRolesAsync(user);
                     serviceResponse.Data = AppuserMapping.GetUserResponseDTO(user);
-                     serviceResponse.Data.Token = await _tokenGenerator.GenerateToken(user);
-                      serviceResponse.Data.TypeofUser = roles.FirstOrDefault();
+                    serviceResponse.Data.Token = await _tokenGenerator.GenerateToken(user);
+                    serviceResponse.Data.TypeofUser = roles.FirstOrDefault();
                     serviceResponse.Message = "User login Successfully..";
                     serviceResponse.Success = true;
-                     return serviceResponse;
+                    return serviceResponse;
                 }
-                 serviceResponse.Message = "Invalid login credientials...";
+                serviceResponse.Message = "Invalid login credientials...";
                 serviceResponse.Success = false;
                 return serviceResponse;
             }
@@ -81,6 +82,55 @@ namespace DonationApp.BuisnessLogic.Implementations
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<AppUser>> GetAppUser(string userID)
+        {
+            ServiceResponse<AppUser> serviceResponse = new ServiceResponse<AppUser>();
+
+            var user = await _userManager.FindByIdAsync(userID);
+            if (user != null)
+            {
+                serviceResponse.Data = user;
+                serviceResponse.Message = "User found..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "User not found..";
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
+        public async Task<ServiceResponse<bool>> UpdateUserByPatch(UpdateUserRequestDTO updateUserRequestDTO, string userID)
+        {
+            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
+
+            var user = await GetAppUser(userID);
+            if (user.Data == null)
+            {
+                serviceResponse.Message = "User not found";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            if (user.Data.Id != userID)
+            {
+                serviceResponse.Message = "Not Authorized!";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            user.Data.Email = updateUserRequestDTO.Email ?? user.Data.Email;
+            var result = await _userManager.UpdateAsync(user.Data);
+                if (result.Succeeded)
+            {
+                serviceResponse.Message = "User details updated sucessfully..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "Cannot update user details at this time..";
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
+
+
+
 
     }
 }
+
