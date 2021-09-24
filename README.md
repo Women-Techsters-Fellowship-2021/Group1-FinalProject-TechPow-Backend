@@ -2,8 +2,7 @@
 
 *Group 1:* Incredible Techsters - TechPow
 =================================
-     **TechPow WebAPI**
-    developed with ASP.NET/C#
+     TechPow WebAPI developed with ASP.NET/C#.
 
 ==========================*Product Description*=============================
 
@@ -16,8 +15,20 @@ Users can register on the appplication as a donor to help people who are in need
 Users can also apply as a donee to make their request known, provide the necessary application details and get approved to be featured on the donee list page and get matched to a donor.
 
 
-The application processs has been developed in such a way that the privilege gotten on TechPow would be received by individuals who really needs it.
+The application process has been developed in such a way that the privilege gotten on TechPow would be received by individuals who really needs it.
 
+
+==========================*Tools*=============================
+
+ASP.NET/C# - Framework/Language
+
+SQL SERVER - Database
+
+SWAGGER - API UI/testing
+
+POSTMAN - API testing/Documentation
+
+SMTP/MailKit C# library - Email Verification
 
 
 ==========================*Why TechPow?*=============================
