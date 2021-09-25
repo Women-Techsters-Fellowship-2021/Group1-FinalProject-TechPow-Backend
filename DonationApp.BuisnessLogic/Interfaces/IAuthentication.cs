@@ -14,5 +14,6 @@ namespace DonationApp.BuisnessLogic.Interfaces
         Task<ServiceResponse<UserResponseDTO>> UserLoginAsync(UserLoginRequestDTO userLoginRequestDTO);
         Task<ServiceResponse<bool>> UpdateUserByPatch(UpdateUserRequestDTO updateUserRequestDTO, string userID);
         Task<ServiceResponse<AppUser>> GetAppUser(string userID);
+         Task<ServiceResponse<UserEmailResponseDTO>> GetAppUserEmail(UserEmailRequestDTO userEmailRequestDTO);    
     }
 }

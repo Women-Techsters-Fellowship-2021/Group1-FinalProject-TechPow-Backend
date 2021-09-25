@@ -20,5 +20,8 @@ namespace DonationApp.DataStore
         public DbSet<DoneeApplication> DoneeApplication { get; set; }
         public DbSet<NGO> NGOs { get; set; }
         public DbSet<DonorForm> DonorForm { get; set; }
-   }
+        public DbSet<ResetPassword> ResetPassword { get; set; }
+
+
+    }
 }

@@ -117,6 +117,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             }
             user.Data.Email = updateUserRequestDTO.Email ?? user.Data.Email;
             var result = await _userManager.UpdateAsync(user.Data);
+           
                 if (result.Succeeded)
             {
                 serviceResponse.Message = "User details updated sucessfully..";
@@ -128,9 +129,22 @@ namespace DonationApp.BuisnessLogic.Implementations
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<UserEmailResponseDTO>> GetAppUserEmail(UserEmailRequestDTO userEmailRequestDTO)
+        {
+            ServiceResponse<UserEmailResponseDTO> serviceResponse = new ServiceResponse<UserEmailResponseDTO>();
 
-
-
+            var user = await _userManager.FindByEmailAsync(userEmailRequestDTO.Email);
+            if (user != null)
+            {
+                serviceResponse.Data = AppuserMapping.GetUserEmail(userEmailRequestDTO);
+                serviceResponse.Message = "User found..";
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            serviceResponse.Message = "An acccount with this email  was not found..";
+            serviceResponse.Success = false;
+            return serviceResponse;
+        }
     }
 }
 

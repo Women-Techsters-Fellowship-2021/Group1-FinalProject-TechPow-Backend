@@ -32,6 +32,7 @@ namespace DonationApp.DTO.Mappings
                 //LastName = user.LastName,
                 Email = user.Email,
 
+
             };
         }
 
@@ -47,5 +48,15 @@ namespace DonationApp.DTO.Mappings
 
             };
         }
+
+        public static UserEmailResponseDTO GetUserEmail(UserEmailRequestDTO userEmailRequestDTO)
+        {
+            return new UserEmailResponseDTO
+            {
+                Email = userEmailRequestDTO.Email
+            };
+
+        }
     }
+
 }

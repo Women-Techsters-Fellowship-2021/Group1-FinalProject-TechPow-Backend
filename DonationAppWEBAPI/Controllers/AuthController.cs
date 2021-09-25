@@ -89,6 +89,26 @@ namespace DonationAppWEBAPI.Controllers
             }
 
         }
+        [HttpGet("GetUserEmail")]
+        public async Task<IActionResult> GetUserEmail([FromQuery] UserEmailRequestDTO userEmailRequestDTO)
+        {
+            try
+            {
+                var user = await _authentication.GetAppUserEmail(userEmailRequestDTO);
+                //var result = AppuserMapping.GetUserResponseDTO(user.Data);
+                if (!(user.Data == null))
+                {
+                    return Ok(user);
+                }
+                return NotFound(user);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+        }
 
         [HttpPatch]
         public async Task<IActionResult> UpdateAppuser_Patch(UpdateUserRequestDTO updateUserRequestDTO, [FromQuery] string userID)
