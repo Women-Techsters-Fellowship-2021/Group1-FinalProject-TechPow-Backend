@@ -58,7 +58,7 @@ namespace DonationApp.BuisnessLogic.Implementations
             {
                 UserId = donorInfoRequestDTO.UserId,
                 FirstName = donorInfoRequestDTO.FirstName,
-            LastName = donorInfoRequestDTO.LastName,
+                LastName = donorInfoRequestDTO.LastName,
                 PhoneNumber = donorInfoRequestDTO.PhoneNumber,
                 HomeAddress = donorInfoRequestDTO.HomeAddress,
                 Country = donorInfoRequestDTO.Country,

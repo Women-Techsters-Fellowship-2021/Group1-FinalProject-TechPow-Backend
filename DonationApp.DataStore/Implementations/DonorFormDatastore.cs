@@ -51,8 +51,6 @@ namespace DonationApp.DataStore.Implementations
         {
             var donorApplications = await _donationAppDBContext.DonorForm.ToListAsync();
             return donorApplications;
-
-
         }
     }
 }

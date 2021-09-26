@@ -49,8 +49,6 @@ namespace DonationApp.BuisnessLogic.Implementations
             serviceResponse.Message = "User Registration failed";
             serviceResponse.Success = false;
             return serviceResponse;
-
-
         }
 
         public async Task<ServiceResponse<UserResponseDTO>> UserLoginAsync(UserLoginRequestDTO userLoginRequestDTO)
@@ -64,7 +62,6 @@ namespace DonationApp.BuisnessLogic.Implementations
             {
                 if (await _userManager.CheckPasswordAsync(user, userLoginRequestDTO.Password))
                 {
-
                     IList<string> roles = await _userManager.GetRolesAsync(user);
                     serviceResponse.Data = AppuserMapping.GetUserResponseDTO(user);
                     serviceResponse.Data.Token = await _tokenGenerator.GenerateToken(user);
