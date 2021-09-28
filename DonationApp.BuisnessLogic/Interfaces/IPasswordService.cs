@@ -9,7 +9,7 @@ namespace DonationApp.BuisnessLogic.Interfaces
 {
     public interface IPasswordService
     {
-        Task<ServiceResponse<int>> SendOTP(UserEmailRequestDTO userEmailRequestDTO, string email);
+        Task SendOTP(string email);
         Task ResetPassword(ResetPassword resetPassword, string email, string newPassword);
     }
 }

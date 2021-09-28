@@ -32,7 +32,6 @@ namespace DonationApp.BuisnessLogic.Implementations
         }
 
         public async Task SendOTP(string email)
-
         {
             //Generate Password reset token
            // var token = await _userManager.GeneratePasswordResetTokenAsync(userEmailRequestDTO.Email);
