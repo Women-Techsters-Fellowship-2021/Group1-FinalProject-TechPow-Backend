@@ -1,3 +1,4 @@
+using DonationApp.BuisnessLogic.Interfaces;
 using DonationApp.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DonationApp.BuisnessLogic.Implementations
 {
-    public class OTPGenerator
+    public class OTPGenerator : IOTPGenerator
     {
         private readonly Random _random = new Random();
         public int RandomNumberGenerator(int min, int max)

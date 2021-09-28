@@ -11,6 +11,9 @@ using DonationApp.Models;
 using DonationApp.DataStore;
 using DonationApp.DataStore.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using DonationApp.DTO.AppuserDTOs;
+using DonationApp.BuisnessLogic.Implementations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DonationAppWEBAPI.Controllers
 {
@@ -19,53 +22,52 @@ namespace DonationAppWEBAPI.Controllers
     public class ResetPasswordController : ControllerBase
     {
         private readonly IPasswordService _passwordService;
-        public ResetPasswordController(IPasswordService passwordService)
+        private readonly IOTPGenerator _oTPGenerator;
+        public ResetPasswordController(IPasswordService passwordService, IOTPGenerator oTPGenerator)
         {
-            _passwordService = passwordService ?? throw new ArgumentNullException(nameof(passwordService));
+            _passwordService = passwordService;
+            _oTPGenerator = oTPGenerator;
         }
-        
-        [HttpPost("SendResetPasswordCode")]
-        //[AllowAnonymous]
-        public async Task<IActionResult> SendResetPasswordCode(string email)
+
+        [HttpPost("SendOTPCode")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SendOTPCode([FromBody] UserEmailRequestDTO userEmailRequestDTO)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(email))
-                {
-                    return BadRequest("Email field should not be null or empty");
-                }
 
-                var result = await _passwordService.ResetPasswordCode(email);
+                await _passwordService.SendOTP(userEmailRequestDTO.Email);
 
-                if (result.Success)
-                {
-                    return Ok("Token sent successfully in email");
-                }
-                return BadRequest(result);
+                return Ok("OTP sent to your Email, Please fill it in.");
+
+                //return BadRequest();
+
             }
+
             catch (Exception)
             {
 
-                throw new UnauthorizedAccessException();
+                throw new InvalidOperationException();
             }
         }
 
-        [HttpPost("ResetPassword")]
-        //[AllowAnonymous]
-        public async Task<IActionResult> ResetPassword(string email, string otp, string newPassword)
-        {
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(newPassword))
-            {
-                return BadRequest("Email and new password cannot be null or empty");
-            }
+        //[HttpPost("ResetPassword")]
+        ////[AllowAnonymous]
+        //public async Task<IActionResult> ResetPassword(string email, string otp, string newPassword)
+        //{
+        //    if (string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(newPassword))
+        //    {
+        //        return BadRequest("Email and new password cannot be null or empty");
+        //    }
 
-            var res = await _passwordService.ResetPassword(resetPassword, email, newPassword);
+        //    //var res = await _passwordService.ResetPassword(resetPassword, email, newPassword);
 
-            if (!res.Succeeded)
-            {
-                return BadRequest();
-            }
-            return Ok();
-        }
+        //    //if (!res.Succeeded)
+        //    //{
+        //    //    return BadRequest();
+        //    //}
+        //    //return Ok();
+        //}
     }
+
 }

@@ -52,6 +52,9 @@ namespace DonationAppWEBAPI
             services.AddScoped<IItemDatastore, ItemDatastore>();
             services.AddScoped<IDonationDatastore,DonationDatastore>();
             services.AddScoped<ITokenGenerator, TokenGenerator>();
+            services.AddScoped<IPasswordService, PasswordService>();
+            services.AddScoped<IPasswordDataStore, PasswordDataStore>();
+            services.AddScoped<IOTPGenerator, OTPGenerator>();
             //services.AddScoped<IEmailService, EmailService>();
 
             services.AddDbContext<DonationAppDBContext>(options =>
