@@ -23,32 +23,31 @@ namespace DonationApp.BuisnessLogic.Implementations
             _passwordDataStore = passwordDataStore;
         }
 
-        public async Task ResetPasswordCode(string email)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-                   
+        public async Task<ServiceResponse<int>> SendOTP(UserEmailRequestDTO userEmailRequestDTO)
+        {                   
+            ServiceResponse<int> serviceResponse = new ServiceResponse<int>();
             //Generate Password reset token
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            //var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
             //Generate OTP
-            int otp = _otpGenerator.RandomNumberGenerator(100000, 999999);
+            
 
             //if we were to use link, generate password reset link
             //var passwordResetLink = UriBuilder.Action("ResetPassword", "Account", new {email = ModuleHandle.Email, token = token}, Request.Scheme);
             //logger.Log(LogLevel.Warning, passwordResetLink);
 
-            var resetPassword = new ResetPassword()
-            {
-                Email = email,
-                OTP = otp.ToString(),
-                Token = token,
-                UserId = user.Id,
-                InsertDateTimeUTC = DateTime.UtcNow
-            };
+            // var resetPassword = new ResetPassword()
+            // {
+            //     Email = email,
+            //     OTP = otp.ToString(),
+            //     Token = token,
+            //     UserId = user.Id,
+            //     InsertDateTimeUTC = DateTime.UtcNow
+            // };
 
-            var newResetPassword = await _passwordDataStore.ResetPasswordAsync(resetPassword);
+            // var newResetPassword = await _passwordDataStore.ResetPasswordAsync(resetPassword);
 
-            await EmailSender.SendEmailAsync(email, "Reset Password OTP", "Hello " + email + "<br><br>Please find the reset password token below<br><br>" + otp + "<br><br><br>Thanks<br>TechPow");
+            // await EmailSender.SendEmailAsync(email, "Reset Password OTP", "Hello " + email + "<br><br>Please find the reset password token below<br><br>" + otp + "<br><br><br>Thanks<br>TechPow");
             return;
         }
 

@@ -19,23 +19,20 @@ namespace DonationAppWEBAPI.Controllers
     public class ResetPasswordController : ControllerBase
     {
         private readonly IPasswordService _passwordService;
-        public ResetPasswordController(IPasswordService passwordService)
+        private readonly IOTPGenerator _otpGenerator;
+        public ResetPasswordController(IPasswordService passwordService, IOTPGenerator otpGenerator)
         {
-            _passwordService = passwordService ?? throw new ArgumentNullException(nameof(passwordService));
+            _passwordService = passwordService;
+            _otpGenerator = otpGenerator;
         }
         
-        [HttpPost("SendResetPasswordCode")]
+        [HttpPost("SendOTPCode")]
         //[AllowAnonymous]
-        public async Task<IActionResult> SendResetPasswordCode(string email)
+        public async Task<IActionResult> SendOTPCode()
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(email))
-                {
-                    return BadRequest("Email field should not be null or empty");
-                }
-
-                var result = await _passwordService.ResetPasswordCode(email);
+                var otp = await _otpGenerator.RandomNumberGenerator(100000, 999999);
 
                 if (result.Success)
                 {
