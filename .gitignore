@@ -62,8 +62,6 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-*[Aa]ppsettings.[Dd]evelopment.json
-*[Aa]ppsettings.json
 
 
 
@@ -101,6 +99,9 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*[Aa]ppsettings.[Dd]evelopment.json
+*[Aa]ppsettings.json
+
 
 # Chutzpah Test files
 _Chutzpah*
