@@ -11,6 +11,6 @@ namespace DonationApp.BuisnessLogic.Interfaces
     public interface IPasswordService
     {
         Task SendOTP(string email);
-        Task ResetPassword(ResetPassword resetPassword, string email, string newPassword);
+        Task <ServiceResponse<bool>> ResetPassword(ResetPasswordRequestDTO resetPasswordRequestDTO);
     }
 }

@@ -10,7 +10,7 @@ namespace DonationApp.DataStore.Interfaces
     public interface IPasswordDataStore
     {
         Task<ResetPassword> ResetPasswordAsync(ResetPassword resetPassword);
-        Task<ResetPassword> GetTokenFromOTPAsync(ResetPassword resetPassword);
+        Task<ResetPassword> GetTokenFromOTPAsync(string email);
     }
 
 }
