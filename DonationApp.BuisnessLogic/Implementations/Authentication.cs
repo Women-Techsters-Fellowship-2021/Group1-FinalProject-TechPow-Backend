@@ -114,8 +114,8 @@ namespace DonationApp.BuisnessLogic.Implementations
             }
             user.Data.Email = updateUserRequestDTO.Email ?? user.Data.Email;
             var result = await _userManager.UpdateAsync(user.Data);
-           
-                if (result.Succeeded)
+
+            if (result.Succeeded)
             {
                 serviceResponse.Message = "User details updated sucessfully..";
                 serviceResponse.Success = true;
