@@ -14,7 +14,7 @@ namespace DonationApp.DataStore.Implementations
         private readonly DonationAppDBContext _donationAppDBContext;
         public PasswordDataStore(DonationAppDBContext donationAppDBContext)
         {
-            _donationAppDBContext = donationAppDBContext ?? throw new ArgumentNullException(nameof(donationAppDBContext));
+            _donationAppDBContext = donationAppDBContext;
         }
         public async Task<ResetPassword> ResetPasswordAsync(ResetPassword resetPassword)
         {
@@ -23,14 +23,16 @@ namespace DonationApp.DataStore.Implementations
             return result.Entity;
         }
 
-        public async Task<ResetPassword> GetTokenFromOTPAsync(ResetPassword resetPassword)
+        public async Task<ResetPassword> GetTokenFromOTPAsync(string email)
         {
             //Getting token from otp
-            var result = await _donationAppDBContext.ResetPassword
-            .Where(resetPass => resetPass.OTP == resetPassword.OTP && resetPass.UserId == resetPassword.UserId)
-            .OrderByDescending(resetPass => resetPass.InsertDateTimeUTC)
-            .FirstOrDefaultAsync();
-            return result;
+
+            var resetPassword = await _donationAppDBContext.ResetPassword.FirstOrDefaultAsync( user => user.Email == email);
+            //var result = await _donationAppDBContext.ResetPassword
+            //.Where(resetPass => resetPass.OTP == resetPassword.OTP && resetPass.UserId == resetPassword.UserId)
+            //.OrderByDescending(resetPass => resetPass.InsertDateTimeUTC)
+            //.FirstOrDefaultAsync();
+            return resetPassword;
         }
     }
 }

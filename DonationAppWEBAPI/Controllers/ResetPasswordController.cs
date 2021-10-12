@@ -51,23 +51,19 @@ namespace DonationAppWEBAPI.Controllers
             }
         }
 
-        //[HttpPost("ResetPassword")]
-        ////[AllowAnonymous]
-        //public async Task<IActionResult> ResetPassword(string email, string otp, string newPassword)
-        //{
-        //    if (string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(newPassword))
-        //    {
-        //        return BadRequest("Email and new password cannot be null or empty");
-        //    }
+        [HttpPost("ResetPassword")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequestDTO resetPasswordRequestDTO)
+        {
+          
+            var result = await _passwordService.ResetPassword(resetPasswordRequestDTO);
 
-        //    //var res = await _passwordService.ResetPassword(resetPassword, email, newPassword);
-
-        //    //if (!res.Succeeded)
-        //    //{
-        //    //    return BadRequest();
-        //    //}
-        //    //return Ok();
-        //}
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
     }
 
 }

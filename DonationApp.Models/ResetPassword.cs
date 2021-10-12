@@ -9,7 +9,7 @@ namespace DonationApp.Models
 {
    public class ResetPassword
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public string UserId { get; set; }
         public string Email { get; set; }
         public string Token { get; set; }
