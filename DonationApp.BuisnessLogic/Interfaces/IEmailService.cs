@@ -11,6 +11,7 @@ namespace DonationApp.BuisnessLogic.Interfaces
     public interface IEmailService
     {
         Task SendEmail(EmailRequestDTO emailRequestDTO);
+        Task SendOTPEmail(string userEmail, int otp);
         //Task<ServiceResponse<EmailResponseDTO>> SendApplicationCompletedEmail(EmailRequestDTO emailRequestDTO);
         //Task<ServiceResponse<EmailResponseDTO>> SendDonationCompletedVerifcationEmail(EmailRequestDTO emailRequestDTO);
 
