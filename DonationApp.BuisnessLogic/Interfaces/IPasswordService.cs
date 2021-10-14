@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DonationApp.Models;
+using DonationApp.DTO.AppuserDTOs;
 
 namespace DonationApp.BuisnessLogic.Interfaces
 {
